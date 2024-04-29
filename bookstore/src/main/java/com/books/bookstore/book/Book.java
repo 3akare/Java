@@ -3,6 +3,7 @@ package com.books.bookstore.book;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -13,8 +14,8 @@ public class Book {
     private String bookTitle;
     private String bookDescription;
     private LocalDate releaseDate;
-    private String authors;
-    private String genre;
+    private List<String> authors;
+    private List<String> genre;
     private Integer rating;
 
     public Book() {
@@ -22,7 +23,7 @@ public class Book {
 
     ;
 
-    public Book(Long id, String bookTitle, String bookDescription, LocalDate releaseDate, String authors, String genre, Integer rating) {
+    public Book(Long id, String bookTitle, String bookDescription, LocalDate releaseDate, List<String> authors, List<String> genre, Integer rating) {
         this.id = id;
         this.bookTitle = bookTitle;
         this.bookDescription = bookDescription;
@@ -32,7 +33,7 @@ public class Book {
         this.rating = rating;
     }
 
-    public Book(String bookTitle, String bookDescription, LocalDate releaseDate, String authors, String genre, Integer rating) {
+    public Book(String bookTitle, String bookDescription, LocalDate releaseDate, List<String> authors, List<String> genre, Integer rating) {
         this.bookTitle = bookTitle;
         this.bookDescription = bookDescription;
         this.releaseDate = releaseDate;
@@ -65,19 +66,19 @@ public class Book {
         this.releaseDate = releaseDate;
     }
 
-    public String getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(String authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 
