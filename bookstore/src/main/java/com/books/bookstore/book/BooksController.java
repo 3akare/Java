@@ -1,5 +1,6 @@
 package com.books.bookstore.book;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,16 +28,23 @@ public class BooksController {
 
         status = bookServices.createBook(book);
         if (status) return "{statusCode: 200, statusMsg: 'Success'}";
-        throw new Exception("Couldn't Create a new Book");
+        throw new Exception("Couldn't Create a new Book titled " + book.getBookTitle());
     }
 
-    @DeleteMapping(path = "{bookTitle}")
-    public String deleteBook(@PathVariable String bookTitle) throws Exception {
+    @DeleteMapping
+    public String deleteBook(@PathParam("bookTitle") String bookTitle) throws Exception {
         boolean status = true;
 //        System.out.println(bookTitle);
         status = bookServices.deleteBook(bookTitle);
         if (status) return "{statusCode: 200, statusMsg: 'Success'}";
-        throw new Exception("Couldn't Create a new Book");
+        throw new Exception("Couldn't Delete " + bookTitle);
     }
 
+    @PatchMapping
+    public String updateBook(@RequestBody Book book) throws Exception {
+        boolean status = true;
+        status = bookServices.updateBook(book);
+        if (status) return "{statusCode: 200, statusMsg: 'Success'}";
+        throw new Exception("Couldn't Update " + book.getBookTitle());
+    }
 }
