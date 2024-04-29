@@ -17,16 +17,24 @@ public class BooksController {
     }
 
     @GetMapping
-    List<Book> getBooks() {
+    public List<Book> getBooks() {
         return bookServices.getBooks();
     }
 
     @PostMapping
-    String createBooks(@RequestBody Book book) throws Exception {
+    public String createBooks(@RequestBody Book book) throws Exception {
         boolean status = true;
-        System.out.println(book);
 
         status = bookServices.createBook(book);
+        if (status) return "{statusCode: 200, statusMsg: 'Success'}";
+        throw new Exception("Couldn't Create a new Book");
+    }
+
+    @DeleteMapping(path = "{bookTitle}")
+    public String deleteBook(@PathVariable String bookTitle) throws Exception {
+        boolean status = true;
+//        System.out.println(bookTitle);
+        status = bookServices.deleteBook(bookTitle);
         if (status) return "{statusCode: 200, statusMsg: 'Success'}";
         throw new Exception("Couldn't Create a new Book");
     }
