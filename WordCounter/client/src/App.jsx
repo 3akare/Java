@@ -7,7 +7,7 @@ import {
 
 function App() {
   return (
-    <StompSessionProvider url={"http://localhost:8080/ws-endpoint"}>
+    <StompSessionProvider url={"https://java-1-zxeh.onrender.com/ws-endpoint"}>
       <InputComponent></InputComponent>
     </StompSessionProvider>
   );
