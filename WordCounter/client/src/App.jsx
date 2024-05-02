@@ -43,7 +43,6 @@ if (stompClient) {
   };
   return (
     <>
-    div>
       <div>characters: {received.characters}</div>
       <div>words: {received.words}</div>
       <div>whitespaces: {received.whitespaces}</div>
