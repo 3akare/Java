@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StompSessionProvider,
   useStompClient,
@@ -15,11 +15,21 @@ function App() {
 
 const InputComponent = () => {
   const [text, setText] = useState("");
-  const [received, setReceived] = useState("");
+  const [received, setReceived] = useState({});
   const stompClient = useStompClient();
 
-  useSubscription("/queue/reply", (message) => {
-    setReceived(message.body);
+  useEffect(()=>{
+if (stompClient) {
+      stompClient.publish({
+        destination: "/app/user-message",
+        body: "",
+      });
+    }
+  },[])
+  
+  useSubscription("/user/queue/reply", (message) => {
+    setReceived(JSON.parse(message.body))
+    console.log(received)
   });
 
   const handleTyping = (event) => {
@@ -33,8 +43,15 @@ const InputComponent = () => {
   };
   return (
     <>
-      <div>Message: {received}</div>
-      <input type="text" value={text} onChange={handleTyping} />
+    div>
+      <div>characters: {received.characters}</div>
+      <div>words: {received.words}</div>
+      <div>whitespaces: {received.whitespaces}</div>
+      <div>paragraph: {received.paragraph}</div>
+      <div>pages: {received.pages}</div>
+      <div>sentences: {received.sentences}</div>
+      <div>writing: {received.writing}</div>
+      <textarea type="text" value={text} onChange={handleTyping} />
     </>
   );
 };
