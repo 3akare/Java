@@ -12,7 +12,6 @@ public class Exceptions {
 
     public static void main(String[] args) {
         String message = null;
-
         try {
             System.out.print("$ ");
             message = reader();
