@@ -15,7 +15,7 @@ public class User {
     @Column(length = 50, nullable = false)
     private String username;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String email;
 
     @Column(length = 50, nullable = false)
@@ -35,6 +35,9 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @Enumerated(EnumType.STRING)
+    private EmploymentType employmentType;
 
     public User() {
     }

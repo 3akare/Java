@@ -1,6 +1,8 @@
 package com.meetyourteam.mytbackend.user;
 
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.List;
 @Service
@@ -13,6 +15,8 @@ public class UserService {
 
     public void createUser(User user){
         try{
+            boolean exists = userRepository.findUserByEmail(user.getEmail()).isPresent();
+            if (exists) throw new RuntimeException("Error: 409");
             userRepository.save(user);
         }
         catch (Exception error){
