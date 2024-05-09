@@ -41,9 +41,9 @@ public class BooksController {
     }
 
     @PatchMapping
-    public String updateBook(@RequestBody Book book) throws Exception {
+    public String updateBook(@RequestBody Book book, @PathParam("bookTitle") String bookTitle) throws Exception {
         boolean status = true;
-        status = bookServices.updateBook(book);
+        status = bookServices.updateBook(book, bookTitle);
         if (status) return "{statusCode: 200, statusMsg: 'Success'}";
         throw new Exception("Couldn't Update " + book.getBookTitle());
     }

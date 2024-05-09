@@ -44,9 +44,9 @@ public class BookServices {
 
     //Update a book
     @Transactional
-    public boolean updateBook(Book book) {
+    public boolean updateBook(Book book, String bookTitle) {
         try {
-            Book bookFromDB = bookRepository.findByBookTitle(book.getBookTitle()).orElseThrow(() -> new IllegalStateException("Book titled " + book.getBookTitle() + " cannot be found"));
+            Book bookFromDB = bookRepository.findByBookTitle(bookTitle).orElseThrow(() -> new IllegalStateException("Book titled " + book.getBookTitle() + " cannot be found"));
             bookFromDB.setBookDescription(book.getBookDescription());
             bookFromDB.setBookTitle(book.getBookTitle());
             bookFromDB.setAuthors(book.getAuthors());
