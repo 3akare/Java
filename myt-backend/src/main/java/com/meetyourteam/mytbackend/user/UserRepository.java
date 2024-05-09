@@ -1,0 +1,6 @@
+package com.meetyourteam.mytbackend.user;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+@SuppressWarnings("unused")
+public interface UserRepository extends JpaRepository<User,Long> { }
