@@ -20,3 +20,4 @@ public class MessagesController {
     public ResponseEntity<List<String>> hello2() throws URISyntaxException {
         return ResponseEntity.ok(Arrays.asList("first","last"));
     }
+}

@@ -1,8 +1,7 @@
 package com.meetyourteam.mytbackend.user;
 
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
+
 
 import java.util.List;
 @Service

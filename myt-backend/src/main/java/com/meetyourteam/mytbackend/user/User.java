@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-@SuppressWarnings("unused")
 public class User {
     @Id
     @SequenceGenerator(name = "sequence-generator",allocationSize = 1, sequenceName = "sequence-generator")

@@ -15,7 +15,6 @@ import java.util.List;
 @Controller
 @CrossOrigin
 @RequestMapping("/api/v1/port")
-@SuppressWarnings("unused")
 public class PortServiceMappingController {
 
     @Autowired

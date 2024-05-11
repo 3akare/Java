@@ -3,7 +3,6 @@ package com.portkeeper.pkbackend.Data;
 import jakarta.persistence.*;
 
 @Entity
-@SuppressWarnings("unused")
 public class PortServiceMapping {
     @Id
     @SequenceGenerator(name = "generator", allocationSize = 1, sequenceName = "generator")

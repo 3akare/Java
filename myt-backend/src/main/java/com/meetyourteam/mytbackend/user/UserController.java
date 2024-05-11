@@ -7,7 +7,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@SuppressWarnings("unused")
 public class UserController {
 
     public final UserService userService;
