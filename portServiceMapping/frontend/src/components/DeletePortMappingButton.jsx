@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { useRefresh } from "@/lib/zustand";
+import { Trash2Icon } from "lucide-react"
 
 function DeletePortMappingButton({ servicePortNumber }) {
     const BASE_URL = "http://localhost:8080/api/v1/port";
@@ -27,7 +28,7 @@ function DeletePortMappingButton({ servicePortNumber }) {
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button variant="destructive" size="icon">
-                    delete
+                    <Trash2Icon size={16} />
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
@@ -35,7 +36,7 @@ function DeletePortMappingButton({ servicePortNumber }) {
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
                         This action cannot be undone. This will permanently delete your
-                        account and remove your data from our servers.
+                        port Mapping and remove the data from our servers.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
