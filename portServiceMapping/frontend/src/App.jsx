@@ -46,11 +46,11 @@ export function TableDemo({ data, setRefresh, setAssociateService, setServiceNum
       <TableCaption>Port Status</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[10px]">MappingId</TableHead>
-          <TableHead className="w-full">Service Description</TableHead>
-          <TableHead className="w-[10px]">Status</TableHead>
-          <TableHead className="text-right w-fit">Port Number</TableHead>
-          <TableHead className="text-right w-[25px]"></TableHead>
+          <TableHead className="w-1/6">IP Address</TableHead>
+          <TableHead className="w-1/2">Description</TableHead>
+          <TableHead className="w-1/6">Status</TableHead>
+          <TableHead className="text-left w-1/6">Port Number</TableHead>
+          <TableHead className="text-left w-1/6">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
