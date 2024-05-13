@@ -22,7 +22,7 @@ function App() {
         <DialogDemo associateService={associateService} serviceNumber={serviceNumber} setAssociateService={setAssociateService} setServiceNumber={setServiceNumber} setRefresh={setRefresh}></DialogDemo>
       </section>
       <section className="container mx-auto max-w-6xl">
-        <TableDemo data={data} setRefresh={setRefresh}></TableDemo>
+        <TableDemo data={data} setRefresh={setRefresh} setAssociateService={setAssociateService} setServiceNumber={setServiceNumber}></TableDemo>
       </section>
     </section>
   );
@@ -40,7 +40,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export function TableDemo({ data, setRefresh }) {
+export function TableDemo({ data, setRefresh, setAssociateService, setServiceNumber }) {
   return (
     <Table>
       <TableCaption>Port Status</TableCaption>
@@ -63,8 +63,7 @@ export function TableDemo({ data, setRefresh }) {
             <TableCell className="text-right">{item.servicePortNumber}</TableCell>
             <TableCell className="flex gap-[10px]">
               <AlertDialogDemo setRefresh={setRefresh} servicePortNumber={item.servicePortNumber} />
-              <div className="size-5 bg-red-600 "></div>
-              <div className="size-5 bg-purple-600 "></div>
+              <DialogDemoB serviceNumber={item.servicePortNumber} associateService={item.associateService} setAssociateService={setAssociateService} setServiceNumber={setServiceNumber} setRefresh={setRefresh}/>
             </TableCell>
           </TableRow>
         ))}
@@ -145,6 +144,74 @@ export function DialogDemo({ associateService, serviceNumber, setAssociateServic
         </div>
         <DialogFooter>
           <Button type="submit" onClick={POST}>add</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+
+export function DialogDemoB({ serviceNumber, setRefresh }) {
+  const [das, setdas] = useState("");
+  const [dasN, setDasN] = useState("");
+  const UPDATE = () => {
+    axios.put(`${BASE_URL}?servicePortNumber=${serviceNumber}`, {
+      associateService: das,
+      servicePortNumber: parseInt(dasN)
+    })
+      .then((response) => {
+        setDasN("");
+        setdas("");
+        setRefresh((value) => !value);
+      });
+  };
+  const serviceTypinga = (event) => {
+    setdas(event.target.value);
+  };
+
+  const numberTypinga = (event) => {
+    setDasN(parseInt(event.target.value));
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">update</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Update Port</DialogTitle>
+          <DialogDescription>
+            {`update a port ${serviceNumber} and its service description`}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="description" className="text-right">
+              Description
+            </Label>
+            <Input
+              id="description"
+              placeholder="Enter Description"
+              // value={associateService}
+              // value={associateService}
+              onChange={serviceTypinga}
+              className="col-span-3"
+            />
+            <Label htmlFor="portnumber" className="text-right">
+              Port
+            </Label>
+            <Input
+              id="username"
+              placeholder="0 - 65,535"
+              // value={serviceNumber}
+              onChange={numberTypinga}
+              className="col-span-3"
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button type="submit" onClick={UPDATE}>update</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
