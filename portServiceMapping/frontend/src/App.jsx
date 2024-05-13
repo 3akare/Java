@@ -13,15 +13,6 @@ function App() {
   }, [refresh]);
 
 
-  const DELETE = (servicePortNumber) => {
-    axios
-      .delete(`${BASE_URL}?servicePortNumber=${servicePortNumber}`)
-      .then((res) => console.log(res));
-
-    setRefresh((value) => !value);
-  };
-
-
 
   return (
     <section className="container mx-aut0 max-w-7xl flex flex-col gap-12">
@@ -31,7 +22,7 @@ function App() {
         <DialogDemo associateService={associateService} serviceNumber={serviceNumber} setAssociateService={setAssociateService} setServiceNumber={setServiceNumber} setRefresh={setRefresh}></DialogDemo>
       </section>
       <section className="container mx-auto max-w-6xl">
-        <TableDemo data={data}></TableDemo>
+        <TableDemo data={data} setRefresh={setRefresh}></TableDemo>
       </section>
     </section>
   );
@@ -49,7 +40,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export function TableDemo({ data }) {
+export function TableDemo({ data, setRefresh }) {
   return (
     <Table>
       <TableCaption>Port Status</TableCaption>
@@ -71,6 +62,7 @@ export function TableDemo({ data }) {
 
             <TableCell className="text-right">{item.servicePortNumber}</TableCell>
             <TableCell className="flex gap-[10px]">
+              <AlertDialogDemo setRefresh={setRefresh} servicePortNumber={item.servicePortNumber} />
               <div className="size-5 bg-red-600 "></div>
               <div className="size-5 bg-purple-600 "></div>
             </TableCell>
@@ -94,7 +86,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export function DialogDemo({ associateService, serviceNumber,setAssociateService, setServiceNumber, setRefresh  }) {
+export function DialogDemo({ associateService, serviceNumber, setAssociateService, setServiceNumber, setRefresh }) {
   const POST = () => {
     axios
       .post(BASE_URL, {
@@ -109,7 +101,6 @@ export function DialogDemo({ associateService, serviceNumber,setAssociateService
   };
   const serviceTyping = (event) => {
     setAssociateService(event.target.value);
-    console.log(associateService)
   };
 
   const numberTyping = (event) => {
@@ -157,5 +148,48 @@ export function DialogDemo({ associateService, serviceNumber,setAssociateService
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  )
+}
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+// import { Button } from "@/components/ui/button"
+
+export function AlertDialogDemo({ servicePortNumber, setRefresh }) {
+  const DELETE = (servicePortNumber) => {
+    axios
+      .delete(`${BASE_URL}?servicePortNumber=${servicePortNumber}`)
+      .then((res) => setRefresh((value) => !value));
+    
+  };
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline">delete</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => DELETE(servicePortNumber)}>Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }
