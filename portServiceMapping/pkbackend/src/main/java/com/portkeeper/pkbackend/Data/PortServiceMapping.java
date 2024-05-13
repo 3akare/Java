@@ -2,6 +2,7 @@ package com.portkeeper.pkbackend.Data;
 
 import jakarta.persistence.*;
 
+@SuppressWarnings("unused")
 @Entity
 public class PortServiceMapping {
     @Id
@@ -10,24 +11,34 @@ public class PortServiceMapping {
 
     private Long mappingId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Long servicePortNumber;
 
     @Column(nullable = false)
     private String associateService;
 
+    @Column(nullable = false)
+    private String serviceIpAddress;
+
+    @Enumerated(EnumType.STRING)
+    private PortServiceMappingStatus serviceStatus;
+
     public PortServiceMapping() {
     }
 
-    public PortServiceMapping(Long servicePortNumber, String associateService) {
+    public PortServiceMapping(Long servicePortNumber, String associateService, String serviceIpAddress, PortServiceMappingStatus serviceStatus) {
         this.servicePortNumber = servicePortNumber;
         this.associateService = associateService;
+        this.serviceIpAddress = serviceIpAddress;
+        this.serviceStatus = serviceStatus;
     }
 
-    public PortServiceMapping(Long mappingId, Long servicePortNumber, String associateService) {
+    public PortServiceMapping(Long mappingId, Long servicePortNumber, String associateService, String serviceIpAddress, PortServiceMappingStatus serviceStatus) {
         this.mappingId = mappingId;
         this.servicePortNumber = servicePortNumber;
         this.associateService = associateService;
+        this.serviceIpAddress = serviceIpAddress;
+        this.serviceStatus = serviceStatus;
     }
 
     public Long getMappingId() {
@@ -52,5 +63,32 @@ public class PortServiceMapping {
 
     public void setAssociateService(String associateService) {
         this.associateService = associateService;
+    }
+
+    public String getServiceIpAddress() {
+        return serviceIpAddress;
+    }
+
+    public void setServiceIpAddress(String serviceIpAddress) {
+        this.serviceIpAddress = serviceIpAddress;
+    }
+
+    public PortServiceMappingStatus getServiceStatus() {
+        return serviceStatus;
+    }
+
+    public void setServiceStatus(PortServiceMappingStatus serviceStatus) {
+        this.serviceStatus = serviceStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "PortServiceMapping{" +
+                "mappingId=" + mappingId +
+                ", servicePortNumber=" + servicePortNumber +
+                ", associateService='" + associateService + '\'' +
+                ", serviceIpAddress='" + serviceIpAddress + '\'' +
+                ", serviceStatus=" + serviceStatus +
+                '}';
     }
 }

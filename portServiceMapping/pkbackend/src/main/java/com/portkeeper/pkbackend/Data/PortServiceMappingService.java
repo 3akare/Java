@@ -46,6 +46,9 @@ public class PortServiceMappingService {
         try {
             PortServiceMapping portData = portServiceMappingRepository.findPortMappingByServicePortNumber(servicePortNumber);
             portData.setAssociateService(updatedPortMapping.getAssociateService());
+            portData.setServicePortNumber(updatedPortMapping.getServicePortNumber());
+            portData.setServiceIpAddress(updatedPortMapping.getServiceIpAddress());
+            portData.setServiceStatus(updatedPortMapping.getServiceStatus());
         } catch (EmptyResultDataAccessException e) {
             throw new EmptyResultDataAccessException("No port mapping found with the provided port number", 1);
         } catch (DataIntegrityViolationException e) {

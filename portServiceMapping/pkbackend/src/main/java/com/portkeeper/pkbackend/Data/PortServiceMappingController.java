@@ -7,12 +7,14 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.List;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/api/v1/port")
 public class PortServiceMappingController {
@@ -25,7 +27,7 @@ public class PortServiceMappingController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getPortMappings(){
+    public ResponseEntity<?> getPortMappings() throws IOException {
         try{
             List<PortServiceMapping> portMappings = portServiceMappingService.getPortMappings();
             return ResponseEntity.ok(portMappings);
