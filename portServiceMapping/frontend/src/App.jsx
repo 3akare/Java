@@ -1,10 +1,11 @@
 import CustomTable from "./components/CustomTable";
+import CreatePortMapping from "./components/CreatePortMapping";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-const BASE_URL = "http://localhost:8080/api/v1/port";
 
 function App() {
+  const BASE_URL = "http://localhost:8080/api/v1/port";
   // const [data, setData] = useState([]);
 
 
@@ -25,6 +26,7 @@ function App() {
       <section className="flex flex-row items-center justify-between h-16 px-8">
         <img src="/remita_orange_new_logo.svg" alt="remita logo" className="h-6" />
         {/* <button>Add New Port</button> */}
+        <CreatePortMapping></CreatePortMapping>
         {/* <DialogDemo associateService={associateService} serviceNumber={serviceNumber} setAssociateService={setAssociateService} setServiceNumber={setServiceNumber} setRefresh={setRefresh}></DialogDemo> */}
       </section>
       <section className="container mx-auto max-w-6xl">
@@ -38,18 +40,7 @@ function App() {
 export default App;
 
 
-// import { Button } from "@/components/ui/button"
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogFooter,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog"
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
+
 
 // export function DialogDemo({ associateService, serviceNumber, setAssociateService, setServiceNumber, setRefresh }) {
 //   const POST = () => {
@@ -73,46 +64,7 @@ export default App;
 //   };
 
 //   return (
-//     <Dialog>
-//       <DialogTrigger asChild>
-//         <Button variant="outline">Add Port</Button>
-//       </DialogTrigger>
-//       <DialogContent className="sm:max-w-[425px]">
-//         <DialogHeader>
-//           <DialogTitle>Add Port</DialogTitle>
-//           <DialogDescription>
-//             Add a port and its service description
-//           </DialogDescription>
-//         </DialogHeader>
-//         <div className="grid gap-4 py-4">
-//           <div className="grid grid-cols-4 items-center gap-4">
-//             <Label htmlFor="description" className="text-right">
-//               Description
-//             </Label>
-//             <Input
-//               id="description"
-//               placeholder="Enter Description"
-//               value={associateService}
-//               onChange={serviceTyping}
-//               className="col-span-3"
-//             />
-//             <Label htmlFor="portnumber" className="text-right">
-//               Port
-//             </Label>
-//             <Input
-//               id="username"
-//               placeholder="0 - 65,535"
-//               value={serviceNumber}
-//               onChange={numberTyping}
-//               className="col-span-3"
-//             />
-//           </div>
-//         </div>
-//         <DialogFooter>
-//           <Button type="submit" onClick={POST}>add</Button>
-//         </DialogFooter>
-//       </DialogContent>
-//     </Dialog>
+    
 //   )
 // }
 
