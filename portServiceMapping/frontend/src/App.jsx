@@ -70,9 +70,11 @@ function App() {
           value={serviceNumber}
           onChange={numberTyping}
         />
-        <button>send</button>
+        <button>s</button>
       </form>
-      <TableDemo></TableDemo>
+      <div className="container mx-auto max-w-6xl">
+        <TableDemo></TableDemo>
+      </div>
     </>
   );
 }
@@ -141,10 +143,10 @@ export function TableDemo() {
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Invoice</TableHead>
+          <TableHead className="w-[100px]">MappingId</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          <TableHead>Service Description</TableHead>
+          <TableHead className="text-right">Port Number</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
