@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableFooter, TableRow } from "@/components/ui/table"
 
 function CustomTable({ caption, portMappingData }) {
-    const display = portMappingData[0] > 0 ? <div className="text-center text-xl">Nothing to see!</div> : <Table>
+    const display = portMappingData === null ? <div className="text-center text-xl">Nothing to see!</div> : <Table>
         <TableCaption>{caption}</TableCaption>
         <TableHeader>
             <TableRow>
