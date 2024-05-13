@@ -30,13 +30,10 @@ function App() {
     <section className="container mx-auto max-w-7xl flex flex-col gap-12">
       <section className="flex flex-row items-center justify-between h-16 px-8">
         <img src="/remita_orange_new_logo.svg" alt="remita logo" className="h-6" />
-        {/* <button>Add New Port</button> */}
         <CreatePortMapping></CreatePortMapping>
-        {/* <DialogDemo associateService={associateService} serviceNumber={serviceNumber} setAssociateService={setAssociateService} setServiceNumber={setServiceNumber} setRefresh={setRefresh}></DialogDemo> */}
       </section>
       <section className="container mx-auto max-w-6xl">
         <CustomTable caption={`last Updated at 18:88`} portMappingData={portMappingData}/>
-        {/* <TableDemo data={data} setRefresh={setRefresh} setAssociateService={setAssociateService} setServiceNumber={setServiceNumber}></TableDemo> */}
       </section>
     </section>
   );
@@ -138,48 +135,5 @@ export default App;
 //         </DialogFooter>
 //       </DialogContent>
 //     </Dialog>
-//   )
-// }
-
-// import {
-//   AlertDialog,
-//   AlertDialogAction,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogDescription,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog"
-// // import { Button } from "@/components/ui/button"
-
-// export function AlertDialogDemo({ servicePortNumber, setRefresh }) {
-//   const DELETE = (servicePortNumber) => {
-//     axios
-//       .delete(`${BASE_URL}?servicePortNumber=${servicePortNumber}`)
-//       .then((res) => setRefresh((value) => !value));
-    
-//   };
-
-//   return (
-//     <AlertDialog>
-//       <AlertDialogTrigger asChild>
-//         <Button variant="outline">delete</Button>
-//       </AlertDialogTrigger>
-//       <AlertDialogContent>
-//         <AlertDialogHeader>
-//           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-//           <AlertDialogDescription>
-//             This action cannot be undone. This will permanently delete your
-//             account and remove your data from our servers.
-//           </AlertDialogDescription>
-//         </AlertDialogHeader>
-//         <AlertDialogFooter>
-//           <AlertDialogCancel>Cancel</AlertDialogCancel>
-//           <AlertDialogAction onClick={() => DELETE(servicePortNumber)}>Delete</AlertDialogAction>
-//         </AlertDialogFooter>
-//       </AlertDialogContent>
-//     </AlertDialog>
 //   )
 // }

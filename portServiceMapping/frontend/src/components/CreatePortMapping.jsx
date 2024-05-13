@@ -20,6 +20,7 @@ function CreatePortMapping() {
     const [ipAddress, setIpAddress] = useState("");
     const [servicePortNumber, setServiceNumber] = useState("");
     const [description, setDescription] = useState("");
+
     const refreshTable = useRefresh((state) => state.refreshTable);
 
     const handleChangingIpAddress = (event) => {
@@ -93,7 +94,9 @@ function CreatePortMapping() {
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button type="submit" className="w-full" onClick={() => POST()}>Create Mapping</Button>
+                    <DialogTrigger asChild>
+                        <Button type="submit" className="w-full" onClick={POST}>Create Mapping</Button>
+                    </DialogTrigger>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableFooter, TableRow } from "@/components/ui/table"
+import DeletePortMappingButton from "./DeletePortMappingButton"
 
 function CustomTable({ caption, portMappingData }) {
     const display = portMappingData === null ? <div className="text-center text-xl">Nothing to see!</div> : <Table>
@@ -21,7 +22,7 @@ function CustomTable({ caption, portMappingData }) {
                         <TableCell>{portMappingitem.associateService}</TableCell>
                         <TableCell>{portMappingitem.serviceStatus}</TableCell>
                         <TableCell>
-                            ff
+                            <DeletePortMappingButton servicePortNumber={portMappingitem.servicePortNumber}></DeletePortMappingButton>
                             {/* edit button */}
                             {/* delete button */}
                         </TableCell>
