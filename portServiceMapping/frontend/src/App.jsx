@@ -1,15 +1,20 @@
 import CustomTable from "./components/CustomTable";
 import CreatePortMapping from "./components/CreatePortMapping";
+import { useRefresh } from "./lib/zustand";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 function App() {
   const BASE_URL = "http://localhost:8080/api/v1/port";
+  const refresh = useRefresh((state) => state.refresh);
+  // const show = useStore((state) => state.show)
+  // const refresh = useStore((state) => state.refresh)
+  // const refresh = useStore((state) => state.refresh)
   // const [data, setData] = useState([]);
 
 
-  const [refresh, setRefresh] = useState(false);
+  // const [refresh, setRefresh] = useState(false);
   const [associateService, setAssociateService] = useState("");
   const [serviceNumber, setServiceNumber] = useState("");
 

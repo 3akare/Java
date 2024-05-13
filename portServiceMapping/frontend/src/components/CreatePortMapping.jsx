@@ -13,12 +13,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
 import { useState } from "react"
+import { useRefresh } from "@/lib/zustand"
 
 function CreatePortMapping() {
     const BASE_URL = "http://localhost:8080/api/v1/port";
     const [ipAddress, setIpAddress] = useState("");
     const [servicePortNumber, setServiceNumber] = useState("");
     const [description, setDescription] = useState("");
+    const refreshTable = useRefresh((state) => state.refreshTable);
 
     const handleChangingIpAddress = (event) => {
         setIpAddress(event.target.value);
@@ -41,6 +43,7 @@ function CreatePortMapping() {
             setIpAddress("");
             setServiceNumber("");
             setDescription("");
+            refreshTable();
         })
     }
 
