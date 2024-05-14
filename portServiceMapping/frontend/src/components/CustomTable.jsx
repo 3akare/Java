@@ -10,7 +10,7 @@ function CustomTable({ caption, portMappingData }) {
                 <TableHead className="w-fit text-left">IP Address</TableHead>
                 <TableHead className="w-fit text-left">Port</TableHead>
                 <TableHead className="w-1/2 text-left">Service</TableHead>
-                <TableHead className="w-fit text-left">Java Version</TableHead>
+                <TableHead className="w-fit text-center">Java Version</TableHead>
                 <TableHead className="w-fit text-left">Status</TableHead>
                 <TableHead className="w-fit text-left">Actions</TableHead>
             </TableRow>
@@ -22,7 +22,7 @@ function CustomTable({ caption, portMappingData }) {
                         <TableCell>{portMappingitem.serviceIpAddress}</TableCell>
                         <TableCell>{portMappingitem.servicePortNumber}</TableCell>
                         <TableCell>{portMappingitem.associateService}</TableCell>
-                        <TableCell>{portMappingitem.javaVersion}</TableCell>
+                        <TableCell className="flex items-center justify-center text-center">{portMappingitem.javaVersion}</TableCell>
                         <TableCell>
                             <div className="flex items-center justify-center">
                                 {

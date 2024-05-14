@@ -16,10 +16,14 @@ import { useState } from "react"
 import { useRefresh } from "@/lib/zustand"
 import PortInput from "./PortInput"
 
+const generateRandomPort = () => {
+    return Math.floor(1000 + Math.random() * 9000);
+}
+
 function CreatePortMapping() {
     const BASE_URL = "http://localhost:8080/api/v1/port";
     const [ipAddress, setIpAddress] = useState("");
-    const [servicePortNumber, setServiceNumber] = useState("");
+    const [servicePortNumber, setServiceNumber] = useState(`${generateRandomPort()}`);
     const [description, setDescription] = useState("");
     const [javaVersion, setJavaVersion] = useState("");
 

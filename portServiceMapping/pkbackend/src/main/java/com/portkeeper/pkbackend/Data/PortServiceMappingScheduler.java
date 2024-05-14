@@ -29,10 +29,10 @@ public class PortServiceMappingScheduler {
 //                System.out.println(portServiceMapping.getServiceIpAddress());
 //                System.out.println(portServiceMapping.getServicePortNumber());
                 portServiceMapping.setServiceStatus(PortServiceMappingStatus.ACTIVE);
-                System.out.println("good");
+//                System.out.println("good");
             } catch (Exception ignored) {
                 portServiceMapping.setServiceStatus(PortServiceMappingStatus.INACTIVE);
-                System.out.println("bad");
+//                System.out.println("bad");
             }
         }
     }
