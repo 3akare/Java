@@ -20,6 +20,7 @@ function CreatePortMapping() {
     const [ipAddress, setIpAddress] = useState("");
     const [servicePortNumber, setServiceNumber] = useState("");
     const [description, setDescription] = useState("");
+    const [javaVersion, setJavaVersion] = useState("");
 
     const refreshTable = useRefresh((state) => state.refreshTable);
 
@@ -35,15 +36,20 @@ function CreatePortMapping() {
         setDescription(event.target.value)
     }
 
+    const handleChangingJavaVersion = (event) => {
+        setJavaVersion(event.target.value);
+    }
     const POST = () => {
         axios.post(BASE_URL, {
             servicePortNumber: servicePortNumber,
             associateService: description,
-            serviceIpAddress: ipAddress
+            serviceIpAddress: ipAddress,
+            javaVersion: javaVersion
         }).then(() => {
             setIpAddress("");
             setServiceNumber("");
             setDescription("");
+            setJavaVersion("");
             refreshTable();
         })
     }
@@ -80,6 +86,16 @@ function CreatePortMapping() {
                             placeholder="Enter port number"
                             value={servicePortNumber}
                             onChange={handleChangingServicePortNumber}
+                            className="col-span-3"
+                        />
+                        <Label htmlFor="javaversion" className="text-left">
+                            Java Version
+                        </Label>
+                        <Input
+                            id="javaversion"
+                            placeholder="Enter Java Version"
+                            value={javaVersion}
+                            onChange={handleChangingJavaVersion}
                             className="col-span-3"
                         />
                         <Label htmlFor="description" className="text-left">

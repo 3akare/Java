@@ -31,9 +31,9 @@ public class PortServiceMappingService {
         }
     }
 
-    public void deletePortMapping(Long portNumber) throws EmptyResultDataAccessException, Exception {
+    public void deletePortMapping(Long portNumber, String serviceIpAddress) throws EmptyResultDataAccessException, Exception {
         try {
-            portServiceMappingRepository.delete(portServiceMappingRepository.findPortMappingByServicePortNumber(portNumber));
+            portServiceMappingRepository.delete(portServiceMappingRepository.findPortMappingByServicePortNumberAndServiceIpAddress(portNumber, serviceIpAddress));
         } catch (EmptyResultDataAccessException e) {
             throw new EmptyResultDataAccessException("No port mapping found with the provided port number", 1);
         } catch (Exception e) {
@@ -42,13 +42,14 @@ public class PortServiceMappingService {
     }
 
     @Transactional
-    public void updatePortMapping(PortServiceMapping updatedPortMapping, Long servicePortNumber) throws EmptyResultDataAccessException, DataIntegrityViolationException, Exception {
+    public void updatePortMapping(PortServiceMapping updatedPortMapping, Long servicePortNumber, String serviceIpAddress) throws EmptyResultDataAccessException, DataIntegrityViolationException, Exception {
         try {
-            PortServiceMapping portData = portServiceMappingRepository.findPortMappingByServicePortNumber(servicePortNumber);
+            PortServiceMapping portData = portServiceMappingRepository.findPortMappingByServicePortNumberAndServiceIpAddress(servicePortNumber, serviceIpAddress);
             portData.setAssociateService(updatedPortMapping.getAssociateService());
             portData.setServicePortNumber(updatedPortMapping.getServicePortNumber());
             portData.setServiceIpAddress(updatedPortMapping.getServiceIpAddress());
             portData.setServiceStatus(updatedPortMapping.getServiceStatus());
+            portData.setJavaVersion(updatedPortMapping.getJavaVersion());
         } catch (EmptyResultDataAccessException e) {
             throw new EmptyResultDataAccessException("No port mapping found with the provided port number", 1);
         } catch (DataIntegrityViolationException e) {

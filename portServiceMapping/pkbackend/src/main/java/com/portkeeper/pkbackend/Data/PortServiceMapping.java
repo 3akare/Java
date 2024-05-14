@@ -20,24 +20,29 @@ public class PortServiceMapping {
     @Column(nullable = false)
     private String serviceIpAddress;
 
+    @Column(nullable = false)
+    private String javaVersion;
+
     @Enumerated(EnumType.STRING)
     private PortServiceMappingStatus serviceStatus;
 
     public PortServiceMapping() {
     }
 
-    public PortServiceMapping(Long servicePortNumber, String associateService, String serviceIpAddress, PortServiceMappingStatus serviceStatus) {
+    public PortServiceMapping(Long servicePortNumber, String associateService, String serviceIpAddress, String javaVersion, PortServiceMappingStatus serviceStatus) {
         this.servicePortNumber = servicePortNumber;
         this.associateService = associateService;
         this.serviceIpAddress = serviceIpAddress;
+        this.javaVersion = javaVersion;
         this.serviceStatus = serviceStatus;
     }
 
-    public PortServiceMapping(Long mappingId, Long servicePortNumber, String associateService, String serviceIpAddress, PortServiceMappingStatus serviceStatus) {
+    public PortServiceMapping(Long mappingId, Long servicePortNumber, String associateService, String serviceIpAddress, String javaVersion, PortServiceMappingStatus serviceStatus) {
         this.mappingId = mappingId;
         this.servicePortNumber = servicePortNumber;
         this.associateService = associateService;
         this.serviceIpAddress = serviceIpAddress;
+        this.javaVersion = javaVersion;
         this.serviceStatus = serviceStatus;
     }
 
@@ -73,22 +78,19 @@ public class PortServiceMapping {
         this.serviceIpAddress = serviceIpAddress;
     }
 
+    public String getJavaVersion() {
+        return javaVersion;
+    }
+
+    public void setJavaVersion(String javaVersion) {
+        this.javaVersion = javaVersion;
+    }
+
     public PortServiceMappingStatus getServiceStatus() {
         return serviceStatus;
     }
 
     public void setServiceStatus(PortServiceMappingStatus serviceStatus) {
         this.serviceStatus = serviceStatus;
-    }
-
-    @Override
-    public String toString() {
-        return "PortServiceMapping{" +
-                "mappingId=" + mappingId +
-                ", servicePortNumber=" + servicePortNumber +
-                ", associateService='" + associateService + '\'' +
-                ", serviceIpAddress='" + serviceIpAddress + '\'' +
-                ", serviceStatus=" + serviceStatus +
-                '}';
     }
 }

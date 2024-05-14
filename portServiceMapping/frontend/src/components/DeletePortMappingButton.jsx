@@ -14,13 +14,13 @@ import { Button } from "@/components/ui/button"
 import { useRefresh } from "@/lib/zustand";
 import { Trash2Icon } from "lucide-react"
 
-function DeletePortMappingButton({ servicePortNumber }) {
+function DeletePortMappingButton({ servicePortNumber, serviceIpAddress }) {
     const BASE_URL = "http://localhost:8080/api/v1/port";
     const refreshTable = useRefresh((state) => state.refreshTable)
 
     const DELETE = () => {
         axios
-            .delete(`${BASE_URL}?servicePortNumber=${servicePortNumber}`)
+            .delete(`${BASE_URL}?servicePortNumber=${servicePortNumber}&serviceIpAddress=${serviceIpAddress}`)
             .then((res) => refreshTable());
     };
 

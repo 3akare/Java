@@ -49,9 +49,9 @@ public class PortServiceMappingController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deletePortMapping(@PathParam("servicePortNumber") Long servicePortNumber){
+    public ResponseEntity<?> deletePortMapping(@PathParam("servicePortNumber") Long servicePortNumber, @PathParam("serviceIpAddress") String serviceIpAddress){
         try{
-            portServiceMappingService.deletePortMapping(servicePortNumber);
+            portServiceMappingService.deletePortMapping(servicePortNumber, serviceIpAddress);
             return ResponseEntity.ok(List.of("Port mapping deleted successfully"));
         } catch (EmptyResultDataAccessException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No port mapping found with the provided port number.");
@@ -62,9 +62,9 @@ public class PortServiceMappingController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updatePortMapping(@RequestBody PortServiceMapping updatedPortServiceMapping, @PathParam("servicePortNumber") Long servicePortNumber){
+    public ResponseEntity<?> updatePortMapping(@RequestBody PortServiceMapping updatedPortServiceMapping, @PathParam("servicePortNumber") Long servicePortNumber, @PathParam("serviceIpAddress") String serviceIpAddress){
         try{
-            portServiceMappingService.updatePortMapping(updatedPortServiceMapping, servicePortNumber);
+            portServiceMappingService.updatePortMapping(updatedPortServiceMapping, servicePortNumber, serviceIpAddress);
             return ResponseEntity.ok(List.of("Port mapping updated successfully"));
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("No port mapping found with the provided port number.");

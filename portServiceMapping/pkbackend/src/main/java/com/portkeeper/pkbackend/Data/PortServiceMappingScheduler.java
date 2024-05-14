@@ -25,14 +25,14 @@ public class PortServiceMappingScheduler {
 
         for (PortServiceMapping portServiceMapping : portServiceMappingList) {
             try (Socket socket = new Socket()) {
-                socket.connect(new InetSocketAddress("www." + portServiceMapping.getServiceIpAddress(), portServiceMapping.getServicePortNumber().intValue()), 1000);
+                socket.connect(new InetSocketAddress(portServiceMapping.getServiceIpAddress(), portServiceMapping.getServicePortNumber().intValue()), 1000);
 //                System.out.println(portServiceMapping.getServiceIpAddress());
 //                System.out.println(portServiceMapping.getServicePortNumber());
-//                portServiceMapping.setServiceStatus(PortServiceMappingStatus.ACTIVE);
-//                System.out.println("good");
+                portServiceMapping.setServiceStatus(PortServiceMappingStatus.ACTIVE);
+                System.out.println("good");
             } catch (Exception ignored) {
                 portServiceMapping.setServiceStatus(PortServiceMappingStatus.INACTIVE);
-//                System.out.println("bad");
+                System.out.println("bad");
             }
         }
     }

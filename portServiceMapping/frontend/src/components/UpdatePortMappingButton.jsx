@@ -17,11 +17,12 @@ import { Textarea } from "./ui/textarea"
 import { useState } from "react"
 import { useRefresh } from "@/lib/zustand"
 
-function UpdatePortMappingButton({ servicePortNumber }) {
+function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
     const BASE_URL = "http://localhost:8080/api/v1/port";
     const [newIpAddress, setnewIpAddress] = useState("");
     const [newServicePortNumber, setServiceNumber] = useState("");
     const [description, setDescription] = useState("");
+    const [javaVersion, setJavaVersion] = useState("");
 
     const refreshTable = useRefresh((state) => state.refreshTable);
 
@@ -37,15 +38,20 @@ function UpdatePortMappingButton({ servicePortNumber }) {
         setDescription(event.target.value)
     }
 
+    const handleChangingJavaVersion = (event) => {
+        setJavaVersion(event.target.value);
+    }
     const UPDATE = () => {
-        axios.put(`${BASE_URL}?servicePortNumber=${servicePortNumber}`, {
+        axios.put(`${BASE_URL}?servicePortNumber=${servicePortNumber}&serviceIpAddress=${serviceIpAddress}`, {
             serviceIpAddress: newIpAddress,
             associateService: description,
-            servicePortNumber: parseInt(newServicePortNumber)
+            servicePortNumber: parseInt(newServicePortNumber),
+            javaVersion: javaVersion
         })
             .then((response) => {
                 setDescription("");
                 setServiceNumber("")
+                setJavaVersion("")
                 setnewIpAddress("")
                 refreshTable();
             });
@@ -57,7 +63,7 @@ function UpdatePortMappingButton({ servicePortNumber }) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Update Port {servicePortNumber}</DialogTitle>
+                    <DialogTitle>Update {serviceIpAddress}:{servicePortNumber}</DialogTitle>
                     <DialogDescription>
                         Update IP addresses and ports for monitoring network connections
                     </DialogDescription>
@@ -82,6 +88,16 @@ function UpdatePortMappingButton({ servicePortNumber }) {
                             placeholder="Enter port number"
                             value={newServicePortNumber}
                             onChange={handleChangingnewServicePortNumber}
+                            className="col-span-3"
+                        />
+                        <Label htmlFor="javaversion" className="text-left">
+                            Java Version
+                        </Label>
+                        <Input
+                            id="javaversion"
+                            placeholder="Enter Java Version"
+                            value={javaVersion}
+                            onChange={handleChangingJavaVersion}
                             className="col-span-3"
                         />
                         <Label htmlFor="description" className="text-left">

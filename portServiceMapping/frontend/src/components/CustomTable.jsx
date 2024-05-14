@@ -10,6 +10,7 @@ function CustomTable({ caption, portMappingData }) {
                 <TableHead className="w-fit text-left">IP Address</TableHead>
                 <TableHead className="w-fit text-left">Port</TableHead>
                 <TableHead className="w-1/2 text-left">Service</TableHead>
+                <TableHead className="w-fit text-left">Java Version</TableHead>
                 <TableHead className="w-fit text-left">Status</TableHead>
                 <TableHead className="w-fit text-left">Actions</TableHead>
             </TableRow>
@@ -21,6 +22,7 @@ function CustomTable({ caption, portMappingData }) {
                         <TableCell>{portMappingitem.serviceIpAddress}</TableCell>
                         <TableCell>{portMappingitem.servicePortNumber}</TableCell>
                         <TableCell>{portMappingitem.associateService}</TableCell>
+                        <TableCell>{portMappingitem.javaVersion}</TableCell>
                         <TableCell>
                             <div className="flex items-center justify-center">
                                 {
@@ -28,8 +30,8 @@ function CustomTable({ caption, portMappingData }) {
                                 }
                             </div></TableCell>
                         <TableCell className="flex gap-3 items-center justify-center">
-                            <UpdatePortMappingButton servicePortNumber={portMappingitem.servicePortNumber}></UpdatePortMappingButton>
-                            <DeletePortMappingButton servicePortNumber={portMappingitem.servicePortNumber}></DeletePortMappingButton>
+                            <UpdatePortMappingButton servicePortNumber={portMappingitem.servicePortNumber} serviceIpAddress={portMappingitem.serviceIpAddress}></UpdatePortMappingButton>
+                            <DeletePortMappingButton servicePortNumber={portMappingitem.servicePortNumber} serviceIpAddress={portMappingitem.serviceIpAddress}></DeletePortMappingButton>
                             {/* edit button */}
                             {/* delete button */}
                         </TableCell>
