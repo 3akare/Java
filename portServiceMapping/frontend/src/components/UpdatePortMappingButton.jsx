@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
 import { useState } from "react"
 import { useRefresh } from "@/lib/zustand"
+import PortInput from "./PortInput"
 
 function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
     const BASE_URL = "http://localhost:8080/api/v1/port";
@@ -28,10 +29,6 @@ function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
 
     const handleChangingnewIpAddress = (event) => {
         setnewIpAddress(event.target.value.trim());
-    }
-
-    const handleChangingnewServicePortNumber = (event) => {
-        setServiceNumber(event.target.value.trim());
     }
 
     const handleChangingDescription = (event) => {
@@ -80,16 +77,12 @@ function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
                             onChange={handleChangingnewIpAddress}
                             className="col-span-3 !outline-none"
                         />
-                        <Label htmlFor="portnumber" className="text-left">
-                            Port
-                        </Label>
-                        <Input
-                            id="port"
-                            placeholder="Enter port number"
-                            value={newServicePortNumber}
-                            onChange={handleChangingnewServicePortNumber}
-                            className="col-span-3"
-                        />
+                        <div className="col-span-4 grid grid-cols-2">
+                            <Label htmlFor="portnumber" className="text-left">
+                                Port
+                            </Label>
+                            <PortInput id="port" value={newServicePortNumber} handleChange={setServiceNumber}></PortInput>
+                        </div>
                         <Label htmlFor="javaversion" className="text-left">
                             Java Version
                         </Label>

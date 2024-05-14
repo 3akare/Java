@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
 import { useState } from "react"
 import { useRefresh } from "@/lib/zustand"
+import PortInput from "./PortInput"
 
 function CreatePortMapping() {
     const BASE_URL = "http://localhost:8080/api/v1/port";
@@ -28,10 +29,6 @@ function CreatePortMapping() {
         setIpAddress(event.target.value.trim());
     }
 
-    const handleChangingServicePortNumber = (event) => {
-        setServiceNumber(event.target.value.trim());
-    }
-
     const handleChangingDescription = (event) => {
         setDescription(event.target.value)
     }
@@ -40,6 +37,7 @@ function CreatePortMapping() {
         setJavaVersion(event.target.value);
     }
     const POST = () => {
+        console.log(servicePortNumber, description, ipAddress)
         axios.post(BASE_URL, {
             servicePortNumber: servicePortNumber,
             associateService: description,
@@ -78,16 +76,12 @@ function CreatePortMapping() {
                             onChange={handleChangingIpAddress}
                             className="col-span-3 !outline-none"
                         />
-                        <Label htmlFor="portnumber" className="text-left">
-                            Port
-                        </Label>
-                        <Input
-                            id="port"
-                            placeholder="Enter port number"
-                            value={servicePortNumber}
-                            onChange={handleChangingServicePortNumber}
-                            className="col-span-3"
-                        />
+                        <div className="col-span-4 grid grid-cols-2">
+                            <Label htmlFor="portnumber" className="text-left">
+                                Port
+                            </Label>
+                            <PortInput id="port" value={servicePortNumber} handleChange={setServiceNumber}></PortInput>
+                        </div>
                         <Label htmlFor="javaversion" className="text-left">
                             Java Version
                         </Label>
