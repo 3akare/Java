@@ -25,11 +25,11 @@ function CreatePortMapping() {
     const refreshTable = useRefresh((state) => state.refreshTable);
 
     const handleChangingIpAddress = (event) => {
-        setIpAddress(event.target.value);
+        setIpAddress(event.target.value.trim());
     }
 
     const handleChangingServicePortNumber = (event) => {
-        setServiceNumber(event.target.value);
+        setServiceNumber(event.target.value.trim());
     }
 
     const handleChangingDescription = (event) => {

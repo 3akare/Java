@@ -27,11 +27,11 @@ function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
     const refreshTable = useRefresh((state) => state.refreshTable);
 
     const handleChangingnewIpAddress = (event) => {
-        setnewIpAddress(event.target.value);
+        setnewIpAddress(event.target.value.trim());
     }
 
     const handleChangingnewServicePortNumber = (event) => {
-        setServiceNumber(event.target.value);
+        setServiceNumber(event.target.value.trim());
     }
 
     const handleChangingDescription = (event) => {
