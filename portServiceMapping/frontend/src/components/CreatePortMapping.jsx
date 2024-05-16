@@ -1,5 +1,6 @@
 import axios from "axios"
 import { Button } from "@/components/ui/button"
+import { useToast } from "./ui/use-toast"
 import {
     Dialog,
     DialogContent,
@@ -17,12 +18,13 @@ import { useRefresh } from "@/lib/zustand"
 import PortInput from "./PortInput"
 
 const generateRandomPort = () => {
-    return Math.floor(1000 + Math.random() * 9000);
+    return Math.floor(6060 + Math.random() * (9090 - 6060));
 }
 
-function CreatePortMapping() {
+function CreatePortMapping({ data }) {
     const BASE_URL = "http://localhost:8080/api/v1/port";
     const [ipAddress, setIpAddress] = useState("");
+    const { toast } = useToast()
     const [servicePortNumber, setServiceNumber] = useState(`${generateRandomPort()}`);
     const [description, setDescription] = useState("");
     const [javaVersion, setJavaVersion] = useState("");
@@ -40,8 +42,8 @@ function CreatePortMapping() {
     const handleChangingJavaVersion = (event) => {
         setJavaVersion(event.target.value);
     }
+
     const POST = () => {
-        console.log(servicePortNumber, description, ipAddress)
         axios.post(BASE_URL, {
             servicePortNumber: servicePortNumber,
             associateService: description,
@@ -49,11 +51,21 @@ function CreatePortMapping() {
             javaVersion: javaVersion
         }).then(() => {
             setIpAddress("");
-            setServiceNumber("");
+            setServiceNumber(`${generateRandomPort()}`);
             setDescription("");
             setJavaVersion("");
             refreshTable();
+        }).catch((err) => {
+            if (err.message === "Request failed with status code 409") {
+                setServiceNumber(`${generateRandomPort()}`)
+                toast({
+                    title: "Failed to Create a new Port Mapping",
+                    description: `${ipAddress}:${servicePortNumber} already exists. \n A random port has been generated, Try Again!`,
+                    variant: "destructive"
+                })
+            }
         })
+
     }
 
     return (
