@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.sound.sampled.Port;
 import java.util.List;
 
 @Service
@@ -25,10 +26,14 @@ public class PortServiceMappingService {
 
     public void createPortMapping(PortServiceMapping portServiceMapping) throws Exception{
         try{
-            portServiceMappingRepository.save(portServiceMapping);
-        }catch (Exception e){
-            throw new Exception("Error occurred while deleting port mapping", e);
+            PortServiceMapping checker = portServiceMappingRepository.findPortMappingByServicePortNumberAndServiceIpAddress(portServiceMapping.getServicePortNumber(), portServiceMapping.getServiceIpAddress());
+            System.out.println(checker.toString());
         }
+        catch (NullPointerException e){
+            portServiceMappingRepository.save(portServiceMapping);
+            return;
+        }
+        throw new DataIntegrityViolationException("PortMapping Object already Exists");
     }
 
     public void deletePortMapping(Long portNumber, String serviceIpAddress) throws EmptyResultDataAccessException, Exception {

@@ -29,6 +29,11 @@ public class PortServiceMapping {
     public PortServiceMapping() {
     }
 
+    public PortServiceMapping(Long servicePortNumber, String serviceIpAddress) {
+        this.servicePortNumber = servicePortNumber;
+        this.serviceIpAddress = serviceIpAddress;
+    }
+
     public PortServiceMapping(Long servicePortNumber, String associateService, String serviceIpAddress, String javaVersion, PortServiceMappingStatus serviceStatus) {
         this.servicePortNumber = servicePortNumber;
         this.associateService = associateService;
