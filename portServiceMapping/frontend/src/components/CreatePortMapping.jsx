@@ -21,13 +21,13 @@ const generateRandomPort = () => {
     return Math.floor(6060 + Math.random() * (9090 - 6060));
 }
 
-function CreatePortMapping({ data }) {
+function CreatePortMapping() {
     const BASE_URL = "http://localhost:8080/api/v1/port";
     const [ipAddress, setIpAddress] = useState("");
-    const { toast } = useToast()
+    const { toast } = useToast();
     const [servicePortNumber, setServiceNumber] = useState(`${generateRandomPort()}`);
     const [description, setDescription] = useState("");
-    const [javaVersion, setJavaVersion] = useState("");
+    const [javaVersion, setJavaVersion] = useState("-");
 
     const refreshTable = useRefresh((state) => state.refreshTable);
 
@@ -54,6 +54,10 @@ function CreatePortMapping({ data }) {
             setServiceNumber(`${generateRandomPort()}`);
             setDescription("");
             setJavaVersion("");
+            toast({
+                title: "Success!",
+                description: `${ipAddress}:${servicePortNumber} added!`,
+            })
             refreshTable();
         }).catch((err) => {
             if (err.message === "Request failed with status code 409") {

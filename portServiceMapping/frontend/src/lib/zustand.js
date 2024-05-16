@@ -6,3 +6,8 @@ export const useRefresh = create((set) => {
         refreshTable: () => set((state) => ({ refresh: !state.refresh })),
     };
 });
+
+export const useArrayState = create((set) => ({
+    myArray: [],
+    addItem: (item) => set((state) => ({ myArray: item })),
+}));

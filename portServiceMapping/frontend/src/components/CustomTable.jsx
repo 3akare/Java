@@ -3,7 +3,7 @@ import DeletePortMappingButton from "./DeletePortMappingButton"
 import UpdatePortMappingButton from "./UpdatePortMappingButton"
 import PaginationBody from "./PaginationBody";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+
 
 function CustomTable({ caption, portMappingData }) {
     const rowsPerPage = 7;
@@ -43,15 +43,12 @@ function CustomTable({ caption, portMappingData }) {
                             <TableCell className="flex gap-3 items-center justify-center">
                                 <UpdatePortMappingButton servicePortNumber={portMappingitem.servicePortNumber} serviceIpAddress={portMappingitem.serviceIpAddress}></UpdatePortMappingButton>
                                 <DeletePortMappingButton servicePortNumber={portMappingitem.servicePortNumber} serviceIpAddress={portMappingitem.serviceIpAddress}></DeletePortMappingButton>
-                                {/* edit button */}
-                                {/* delete button */}
                             </TableCell>
                         </TableRow>
                     )
                 })}
             </TableBody>
         </Table>
-
     </>
     return (display)
 }

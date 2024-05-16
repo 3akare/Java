@@ -9,7 +9,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Edit2Icon, Trash2Icon } from "lucide-react"
+import { Edit2Icon } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -17,6 +17,7 @@ import { Textarea } from "./ui/textarea"
 import { useState, useEffect } from "react"
 import { useRefresh } from "@/lib/zustand"
 import PortInput from "./PortInput"
+import { useToast } from "./ui/use-toast"
 
 function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
     const BASE_URL = "http://localhost:8080/api/v1/port";
@@ -24,6 +25,7 @@ function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
     const [newServicePortNumber, setServiceNumber] = useState("");
     const [description, setDescription] = useState("");
     const [javaVersion, setJavaVersion] = useState("");
+    const { toast } = useToast()
 
     const refreshTable = useRefresh((state) => state.refreshTable);
 
@@ -50,6 +52,9 @@ function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
                 setServiceNumber("")
                 setJavaVersion("")
                 setnewIpAddress("")
+                toast({
+                    title: "Updated!",
+                })
                 refreshTable();
             });
     };
@@ -58,7 +63,7 @@ function UpdatePortMappingButton({ servicePortNumber, serviceIpAddress }) {
         setnewIpAddress(serviceIpAddress);
         setServiceNumber(servicePortNumber)
     }, [])
-    
+
     return (
         <Dialog>
             <DialogTrigger asChild>

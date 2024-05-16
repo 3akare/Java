@@ -13,15 +13,22 @@ import {
 import { Button } from "@/components/ui/button"
 import { useRefresh } from "@/lib/zustand";
 import { Trash2Icon } from "lucide-react"
+import { useToast } from "./ui/use-toast";
 
 function DeletePortMappingButton({ servicePortNumber, serviceIpAddress }) {
     const BASE_URL = "http://localhost:8080/api/v1/port";
     const refreshTable = useRefresh((state) => state.refreshTable)
+    const { toast } = useToast();
 
     const DELETE = () => {
         axios
             .delete(`${BASE_URL}?servicePortNumber=${servicePortNumber}&serviceIpAddress=${serviceIpAddress}`)
-            .then((res) => refreshTable());
+            .then((res) => {
+                refreshTable();
+                toast({
+                    title: "Deleted!"
+                })
+            });
     };
 
     return (
@@ -41,7 +48,7 @@ function DeletePortMappingButton({ servicePortNumber, serviceIpAddress }) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => DELETE()}>Delete</AlertDialogAction>
+                    <AlertDialogAction className="bg-destructive" onClick={() => DELETE()}>Delete</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
