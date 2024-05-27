@@ -42,15 +42,15 @@ export default function SearchBar({ portMappingData }) {
                 <Command>
                     <CommandInput placeholder="Search..." />
                     <CommandEmpty>No IP Address found.</CommandEmpty>
-                    <CommandList>
+                    <CommandList className="max-h-40 overflow-hidden">
                         {portMappingData.map((framework) => (
                             <CommandItem
                                 key={framework.serviceIpAddress + framework.servicePortNumber}
-                                value={framework.serviceIpAddress}
+                                value={framework.serviceIpAddress + framework.servicePortNumber}
                                 onSelect={(currentValue) => {
                                     setValue(currentValue === value ? "" : currentValue)
                                     setOpen(false)
-                                }}
+                                }} s
                             >
                                 <Check
                                     className={cn(
