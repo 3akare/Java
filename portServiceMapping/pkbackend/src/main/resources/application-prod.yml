@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: "jdbc:mysql://portkeeperdatabase:3306/portkeeper"
+    username: "bakare"
+    password: "0987"

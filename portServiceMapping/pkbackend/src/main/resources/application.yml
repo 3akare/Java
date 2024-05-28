@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: "mac"
+  application:
+    name: "portkeeper"
+  jpa:
+    hibernate:
+      ddl-auto: "update"
+    show-sql: true
+  mail:
+    host: "smtp.gmail.com"
+    port: 587
+    username: "bakaredavid007@gmail.com"
+    password: "ixrocxtcvhprqkwk"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+senderEmail: "bakaredavid007@gmail.com"
+receiverEmail: "david.bakare@allcast.ng"
