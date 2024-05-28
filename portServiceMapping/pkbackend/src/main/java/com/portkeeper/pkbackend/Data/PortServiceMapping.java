@@ -98,4 +98,16 @@ public class PortServiceMapping {
     public void setServiceStatus(PortServiceMappingStatus serviceStatus) {
         this.serviceStatus = serviceStatus;
     }
+
+    @Override
+    public String toString() {
+        return "PortServiceMapping{" +
+                "mappingId=" + mappingId +
+                ", servicePortNumber=" + servicePortNumber +
+                ", associateService='" + associateService + '\'' +
+                ", serviceIpAddress='" + serviceIpAddress + '\'' +
+                ", javaVersion='" + javaVersion + '\'' +
+                ", serviceStatus=" + serviceStatus +
+                '}';
+    }
 }
