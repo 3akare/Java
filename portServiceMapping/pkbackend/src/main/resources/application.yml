@@ -1,12 +1,17 @@
 spring:
   profiles:
-    active: "mac"
+    active: "dev"
   application:
     name: "portkeeper"
   jpa:
     hibernate:
       ddl-auto: "update"
     show-sql: true
+  config:
+    import:
+      - "application-dev.yml"
+      - "application-mac.yml"
+      - "application-prod.yml"
   mail:
     host: "smtp.gmail.com"
     port: 587
@@ -20,3 +25,4 @@ spring:
             enable: true
 senderEmail: "bakaredavid007@gmail.com"
 receiverEmail: "david.bakare@allcast.ng"
+

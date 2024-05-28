@@ -1,6 +1,16 @@
 spring:
+  config:
+    activate:
+      on-profile: "dev"
   datasource:
     url: "jdbc:mysql://localhost:3306/portkeeper"
     username: "root"
     password: "0987"
     driver-class-name: "com.mysql.cj.jdbc.Driver"
+
+keeper:
+  message: "Welcome to PORTKEEPER App ...local dev Api"
+  contactDetails:
+    name: DAVID BAKARE - DB
+  onCallSupport:
+    - +(234)8 159 602 684

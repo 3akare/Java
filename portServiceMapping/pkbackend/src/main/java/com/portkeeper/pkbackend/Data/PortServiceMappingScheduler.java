@@ -44,13 +44,12 @@ public class PortServiceMappingScheduler {
         }
     }
 
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "0 */2 * ? * *")
     public void cronEmail(){
         System.out.println("this ran!");
         for (Map.Entry<String,String> entry : downBad.entrySet()){
             if (Objects.equals(entry.getValue(), "unsent")) {
                 PortServiceMapping portServiceMapping = portServiceMappingRepository.findById(Long.parseLong(entry.getKey())).get();
-//                System.out.println(portServiceMapping);
                 portServiceMappingEmailSender.sendEmail(portServiceMapping);
                 System.out.println("Success");
                 downBad.replace(entry.getKey(), "sent");

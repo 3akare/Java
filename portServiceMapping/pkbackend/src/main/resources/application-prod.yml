@@ -1,5 +1,15 @@
 spring:
+  config:
+    activate:
+      on-profile: "prod"
   datasource:
-    url: "jdbc:mysql://portkeeperdatabase:3306/portkeeper"
+    url: "jdbc:mysql://portkeeperdatabase:3306/database"
     username: "bakare"
-    password: "0987"
+    password: 0987
+
+keeper:
+  message: "Welcome to PORTKEEPER App ...local prod Api"
+  contactDetails:
+    name: DAVID BAKARE - DB
+  onCallSupport:
+    - +(234)8 159 602 684
