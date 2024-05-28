@@ -4,8 +4,8 @@ spring:
       on-profile: "mac"
   datasource:
     url: "jdbc:mysql://localhost:3306/portkeeper"
-    username: "root"
-    password: "0987"
+    username: "bakare"
+    password: "0756abwmB$"
     driver-class-name: "com.mysql.cj.jdbc.Driver"
 
 keeper:
@@ -14,3 +14,8 @@ keeper:
     name: DAVID BAKARE - DB
   onCallSupport:
     - +(234)8 159 602 684
+server:
+  port: 8081
+
+senderEmail: "bakaredavid007@gmail.com"
+receiverEmail: "bakare@systemspecscomng.onmicrosoft.com"

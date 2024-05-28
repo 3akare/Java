@@ -23,6 +23,5 @@ spring:
           auth: true
           starttls:
             enable: true
-senderEmail: "bakaredavid007@gmail.com"
-receiverEmail: "david.bakare@allcast.ng"
+
 
