@@ -44,7 +44,7 @@ public class PortServiceMappingScheduler {
         }
     }
 
-    @Scheduled(cron = "0 */2 * ? * *")
+    @Scheduled(cron = "0 */1 * ? * *")
     public void cronEmail(){
         System.out.println("this ran!");
         for (Map.Entry<String,String> entry : downBad.entrySet()){

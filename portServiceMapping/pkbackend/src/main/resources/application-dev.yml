@@ -15,7 +15,7 @@ keeper:
   onCallSupport:
     - +(234)8 159 602 684
 server:
-  port: 8081
+  port: 8080
 
 senderEmail: "bakaredavid007@gmail.com"
 receiverEmail: "bakare@systemspecscomng.onmicrosoft.com"
