@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: "prod"
   datasource:
-    url: "jdbc:mysql://portkeeperdatabase:3306/database"
+    url: "jdbc:mysql://pkdatabase:3306/database"
     username: "bakare"
     password: 0987
 
