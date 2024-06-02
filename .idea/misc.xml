@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/bookstore/pom.xml" />
+        <option value="$PROJECT_DIR$/myt-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/TestingJava/pom.xml" />
+        <option value="$PROJECT_DIR$/WordCounter/WordCounterApplication/pom.xml" />
+        <option value="$PROJECT_DIR$/portServiceMapping/pkbackend/pom.xml" />
+        <option value="$PROJECT_DIR$/Authentication with spring boot/authentication-backend/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

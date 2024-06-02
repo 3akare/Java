@@ -7,9 +7,11 @@ public class Main{
     }
 
     // Linear Search
-    public static int linearSearchArray(int[] sortedArray, int item){
+    public static int linearSearchArray(int[] sortedArray, int target){
+        int steps = 0;
         for (int i = 0; i < sortedArray.length; i++) {
-            if (sortedArray[i] == item){
+            if (sortedArray[i] == target){
+                System.out.println(step++);
                 return i;
             }
         }
@@ -17,20 +19,22 @@ public class Main{
     }
 
     // Binary Search
-    public static int binarySearchArray(int[] sortedArray, int item){
-        int start = 0;
-        int end = sortedArray.length;
-        int mid = end / 2;
+    public static int binarySearchArray(int[] sortedArray, int target){
+        int start;
+        int end = sortedArray.length - 1;
+        int mid;
+        int steps = 0;
 
-        while(start != mid || mid != end){
-            if (sortedArray[mid] == item){
-                return mid;
-            } else if (sortedArray[mid] > item) {
-                end = mid;
-            } else if (sortedArray[mid] < item) {
-                start = mid;
-            }
+        while(start <= end){
             mid = (end + start) / 2;
+            System.out.println(steps++);
+            if (sortedArray[mid] == target){
+                return mid;
+            } else if (sortedArray[mid] > target) {
+                end = mid + 1;
+            } else if (sortedArray[mid] < target) {
+                start = mid - 1;
+            }
         }
         return -1;
     }
