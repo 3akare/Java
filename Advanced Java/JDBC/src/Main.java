@@ -2,10 +2,10 @@ import java.sql.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String URL = "jdbc:mysql://localhost:3306/portkeeper";
+        String URL = "jdbc:mysql://localhost:3306/crud_app";
         String username = "root";
         String password = "0987";
-        String query = "SELECT * FROM port_service_mapping";
+        String query = "SELECT * FROM jdbc";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -14,16 +14,10 @@ public class Main {
             ResultSet result = statement.executeQuery(query);
 
             while (result.next()) {
-                System.out.println(
-                    result.getInt(1) + " " + 
-                    result.getString(2) + " " +
-                    result.getString(3) + " " +
-                    result.getString(4) + " " +
-                    result.getString(5) + " " +
-                    result.getString(6) + " " 
+                System.out.println("id: " + result.getInt(1) + " " + " name: " +
+                    result.getString(2)
                     );
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
