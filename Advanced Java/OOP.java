@@ -32,7 +32,7 @@ public class OOP {
         lamdaInterface lamdaFunction = () -> System.out.println("Showing... (lamda function)");
         lamdaFunction.show();
 
-        for (Laptop laptop: Laptop.values()){
+        for (Laptop laptop : Laptop.values()) {
             System.out.println(laptop.getPrice() + " " + laptop.name());
         }
     }

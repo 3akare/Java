@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main{
+public class Main {
     public static final Scanner scanner = new Scanner(System.in);
     public static final List<String> historyDataList = new ArrayList<>();
     public static String currentWorkingDirectory = System.getProperty("user.dir");
@@ -16,32 +16,33 @@ public class Main{
     public static void main(String[] args) throws IOException {
         String commandLineString;
         String[] tokenizeCommandLineString;
-        List<String> availableCommands = Arrays.asList("ls", "cd","rm","pwd", "details", "history","exit");
+        List<String> availableCommands = Arrays.asList("ls", "cd", "rm", "pwd", "details", "history", "exit");
         String command;
         String argument;
         boolean loopStatus = true;
 
-        while(loopStatus){
+        while (loopStatus) {
             System.out.print("$(jsh) " + currentWorkingDirectory + "> ");
             commandLineString = scanner.nextLine();
             tokenizeCommandLineString = commandLineString.split("\\s+", 2);
             command = tokenizeCommandLineString[0];
 
-            //verify and add commands to history list
-            if(!command.isEmpty() && availableCommands.contains(command)) {
+            // verify and add commands to history list
+            if (!command.isEmpty() && availableCommands.contains(command)) {
                 historyDataList.add(commandLineString);
             }
 
-            switch(command){
+            switch (command) {
                 case "ls":
-                   listFiles();
+                    listFiles();
                     break;
                 case "cd":
-                    if (tokenizeCommandLineString.length > 1){
+                    if (tokenizeCommandLineString.length > 1) {
                         argument = tokenizeCommandLineString[1];
                         changeDirectory(argument);
+                    } else {
+                        System.out.println("cd: missing argument");
                     }
-                    else { System.out.println("cd: missing argument"); }
                     break;
                 case "rm":
                     removeFile(commandLineString);
@@ -50,7 +51,7 @@ public class Main{
                     createFile(commandLineString);
                     break;
                 case "pwd":
-                   printCurrentWorkingDirectory();
+                    printCurrentWorkingDirectory();
                     break;
                 case "history":
                     printHistory();
@@ -59,11 +60,10 @@ public class Main{
                     clearScreen();
                     break;
                 case "details":
-                    if (tokenizeCommandLineString.length > 1){
+                    if (tokenizeCommandLineString.length > 1) {
                         argument = tokenizeCommandLineString[1];
                         getFileDetails(argument);
-                    }
-                    else {
+                    } else {
                         System.out.println("details: missing argument");
                     }
                     break;
@@ -75,24 +75,26 @@ public class Main{
             }
         }
     }
-    public static void printHistory(){
-        for (String historyData: historyDataList){
+
+    public static void printHistory() {
+        for (String historyData : historyDataList) {
             System.out.println(historyData);
         }
     }
 
-    public static void listFiles(){
+    public static void listFiles() {
         File directory = new File(currentWorkingDirectory);
         File[] files = directory.listFiles();
         // I don't know what this does but intellij suggested it.
         assert files != null;
-        for (File file: files){
-            if (file.isDirectory()) System.out.print("/");
+        for (File file : files) {
+            if (file.isDirectory())
+                System.out.print("/");
             System.out.println(file.getName());
         }
     }
 
-    public static void changeDirectory(String argument){
+    public static void changeDirectory(String argument) {
         String newDirectory = argument;
 
         if (!newDirectory.startsWith("/") && !newDirectory.startsWith("..")) {
@@ -106,14 +108,15 @@ public class Main{
         }
     }
 
-    public static void printCurrentWorkingDirectory(){
+    public static void printCurrentWorkingDirectory() {
         System.out.println(System.getProperty("user.dir"));
     }
 
-    public static void getFileDetails(String filename){
+    public static void getFileDetails(String filename) {
         File file = new File(filename);
         if (file.isFile() && file.exists()) {
-            LocalDateTime lastModifiedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(file.lastModified()), ZoneId.systemDefault());
+            LocalDateTime lastModifiedDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(file.lastModified()),
+                    ZoneId.systemDefault());
             System.out.printf("file name: %s\nfile size: %d\nlast modified: ", file.getName(), file.length());
             System.out.println(lastModifiedDateTime);
             return;
@@ -123,31 +126,33 @@ public class Main{
 
     public static void createFile(String arguments) throws IOException {
         String[] commandArgs = arguments.split("\\s+");
-//        File newFile = new File(commandArgs)
+        // File newFile = new File(commandArgs)
 
-        for (int i = 1; i < commandArgs.length; i++){
+        for (int i = 1; i < commandArgs.length; i++) {
             File newfile = new File(commandArgs[i]);
-            if (newfile.exists()) continue;
+            if (newfile.exists())
+                continue;
             newfile.createNewFile();
         }
 
     }
 
-    public static void removeFile(String arguments){
+    public static void removeFile(String arguments) {
         String[] commandArgs = arguments.split("\\s+");
-//        File fileToDelete = new File(commandArgs)
+        // File fileToDelete = new File(commandArgs)
 
-        for (int i = 1; i < commandArgs.length; i++){
+        for (int i = 1; i < commandArgs.length; i++) {
             File fileToDelete = new File(commandArgs[i]);
             if (fileToDelete.isDirectory()) {
                 System.out.println("rm: cannot remove '" + fileToDelete.getName() + "': Is a directory");
                 return;
             }
-            if (fileToDelete.exists()) fileToDelete.delete();
+            if (fileToDelete.exists())
+                fileToDelete.delete();
         }
     }
 
-    public static void clearScreen(){
+    public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }

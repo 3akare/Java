@@ -5,8 +5,7 @@ abstract public class Shapes {
         throw new Exception("Override this method");
     }
 
-    public void area() throws Exception{
+    public void area() throws Exception {
         throw new Exception("Override this method");
     }
 }
-

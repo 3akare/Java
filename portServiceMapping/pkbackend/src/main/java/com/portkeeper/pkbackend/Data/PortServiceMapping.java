@@ -34,7 +34,8 @@ public class PortServiceMapping {
         this.serviceIpAddress = serviceIpAddress;
     }
 
-    public PortServiceMapping(Long servicePortNumber, String associateService, String serviceIpAddress, String javaVersion, PortServiceMappingStatus serviceStatus) {
+    public PortServiceMapping(Long servicePortNumber, String associateService, String serviceIpAddress,
+            String javaVersion, PortServiceMappingStatus serviceStatus) {
         this.servicePortNumber = servicePortNumber;
         this.associateService = associateService;
         this.serviceIpAddress = serviceIpAddress;
@@ -42,7 +43,8 @@ public class PortServiceMapping {
         this.serviceStatus = serviceStatus;
     }
 
-    public PortServiceMapping(Long mappingId, Long servicePortNumber, String associateService, String serviceIpAddress, String javaVersion, PortServiceMappingStatus serviceStatus) {
+    public PortServiceMapping(Long mappingId, Long servicePortNumber, String associateService, String serviceIpAddress,
+            String javaVersion, PortServiceMappingStatus serviceStatus) {
         this.mappingId = mappingId;
         this.servicePortNumber = servicePortNumber;
         this.associateService = associateService;

@@ -1,6 +1,6 @@
 package com.portkeeper.pkbackend.Data;
 
-@SuppressWarnings("unused")
+// @SuppressWarnings("unused")
 public enum PortServiceMappingStatus {
     ACTIVE, INACTIVE
 }
