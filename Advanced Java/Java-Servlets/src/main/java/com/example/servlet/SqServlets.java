@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet("/sq")
 public class SqServlets extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int k = (int) request.getAttribute("k");
-        response.getWriter().println("Sq Servlet: " + k * k);
+//        int k = (int) request.getAttribute("k");
+//        response.getWriter().println("Sq Servlet: " + k * k);
     }
 }

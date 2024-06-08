@@ -19,8 +19,8 @@ public class HelloServlet extends HttpServlet {
 //        response.setContentType("text/html");
 //        response.getWriter().print("Result: " + k);
 
-
         //Session management
+
         request.setAttribute("k", k);
         RequestDispatcher rd = request.getRequestDispatcher("sq");
         rd.forward(request, response);
