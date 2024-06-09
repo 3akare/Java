@@ -1,6 +1,7 @@
 package com.example.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,21 +15,25 @@ import javax.servlet.http.HttpSession;
 public class HelloServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int i = Integer.parseInt(request.getParameter("num1"));
-        int j = Integer.parseInt(request.getParameter("num2"));
-        int k = i + j;
+//        int i = Integer.parseInt(request.getParameter("num1"));
+//        int j = Integer.parseInt(request.getParameter("num2"));
+//        int k = i + j;
 
-        Cookie cookie = new Cookie("token", "random-cookie-token");
-        response.addCookie(cookie);
+        String name = "David";
 
-        response.setContentType("text/html");
-        response.getWriter().print("Result: " + k + "\n<a href='http://localhost:8080/sq'>Link</a>");
+        PrintWriter out = response.getWriter();
+        out.println(name);
+//        Cookie cookie = new Cookie("token", "random-cookie-token");
+//        response.addCookie(cookie);
+//
+//        response.setContentType("text/html");
+//        response.getWriter().print("Result: " + k + "\n<a href='http://localhost:8080/sq'>Link</a>");
 
         //Session management
 
-        request.setAttribute("k", k);
-        RequestDispatcher rd = request.getRequestDispatcher("sq");
-        rd.forward(request, response);
+//        request.setAttribute("k", k);
+//        RequestDispatcher rd = request.getRequestDispatcher("sq");
+//        rd.forward(request, response);
         //Http Cookies and Sessions
 
 
