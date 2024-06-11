@@ -1,10 +1,25 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<%@include file="header.jsp"%>
+
 <form action="hello" method="post">
-    <input type="text" name="num1" placeholder="num1">
-    <input type="text" name="num2" placeholder="num3">
-    <button>send</button>
+    <%@page import="com.example.servlet.Circle"%>
+    <%@page import="com.example.servlet.Square"%>
+    <%@page errorPage="error.jsp"%>
+
+    <!-- declarative tag -->
+
+    <%!
+        int i = 123;
+        String name = "David Bakare";
+        String typeCast = 1224 + "";
+    %>
+
+    <!-- Inside the service method -->
+    <%
+    int k = 9/0;
+    %>
 </form>
+<%@include file="footer.jsp"%>
 </body>
 </html>
