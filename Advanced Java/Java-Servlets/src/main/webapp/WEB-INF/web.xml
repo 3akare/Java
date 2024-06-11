@@ -15,4 +15,11 @@
 <!--    <servlet-name>HelloServlet</servlet-name>-->
 <!--    <url-pattern>/hello</url-pattern>-->
 <!--  </servlet-mapping>-->
+<!--  context is shared across all servlet-->
+  <context-param>
+    <param-name>David</param-name>
+    <param-value>Bakare</param-value>
+  </context-param>
+
+
 </web-app>
