@@ -5,7 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.sound.sampled.Port;
 import java.util.List;
 
 @Service
@@ -24,19 +23,19 @@ public class PortServiceMappingService {
         }
     }
 
-    public void createPortMapping(PortServiceMapping portServiceMapping) throws Exception{
+    public PortServiceMapping createPortMapping(PortServiceMapping portServiceMapping) throws Exception{
         try{
             PortServiceMapping checker = portServiceMappingRepository.findPortMappingByServicePortNumberAndServiceIpAddress(portServiceMapping.getServicePortNumber(), portServiceMapping.getServiceIpAddress());
             System.out.println(checker.toString());
         }
         catch (NullPointerException e){
             portServiceMappingRepository.save(portServiceMapping);
-            return;
+            return portServiceMapping;
         }
         throw new DataIntegrityViolationException("PortMapping Object already Exists");
     }
 
-    public void deletePortMapping(Long portNumber, String serviceIpAddress) throws EmptyResultDataAccessException, Exception {
+    public PortServiceMapping deletePortMapping(Long portNumber, String serviceIpAddress) throws EmptyResultDataAccessException, Exception {
         try {
             portServiceMappingRepository.delete(portServiceMappingRepository.findPortMappingByServicePortNumberAndServiceIpAddress(portNumber, serviceIpAddress));
         } catch (EmptyResultDataAccessException e) {
@@ -44,10 +43,11 @@ public class PortServiceMappingService {
         } catch (Exception e) {
             throw new Exception("Error occurred while deleting port mapping", e);
         }
+        return null;
     }
 
     @Transactional
-    public void updatePortMapping(PortServiceMapping updatedPortMapping, Long servicePortNumber, String serviceIpAddress) throws EmptyResultDataAccessException, DataIntegrityViolationException, Exception {
+    public PortServiceMapping updatePortMapping(PortServiceMapping updatedPortMapping, Long servicePortNumber, String serviceIpAddress) throws EmptyResultDataAccessException, DataIntegrityViolationException, Exception {
         try {
             PortServiceMapping portData = portServiceMappingRepository.findPortMappingByServicePortNumberAndServiceIpAddress(servicePortNumber, serviceIpAddress);
             portData.setAssociateService(updatedPortMapping.getAssociateService());
@@ -62,5 +62,6 @@ public class PortServiceMappingService {
         } catch (Exception e) {
             throw new Exception("Error occurred while updating port mapping", e);
         }
+        return updatedPortMapping;
     }
 }
