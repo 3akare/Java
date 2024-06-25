@@ -1,14 +1,12 @@
 package com.onlinebanking.bank.controller;
 
+import com.onlinebanking.bank.dto.EnquiryRequest;
 import com.onlinebanking.bank.dto.ResponseDTO;
 import com.onlinebanking.bank.dto.UserDTO;
 import com.onlinebanking.bank.service.impl.UserServiceImpl;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -19,5 +17,15 @@ public class UserController {
     @PostMapping("/createAccount")
     public ResponseDTO createAccount(@RequestBody  UserDTO userDTO) throws MessagingException {
         return userServiceImpl.createAccount(userDTO);
+    }
+
+    @GetMapping("/balanceEnquiry")
+    public ResponseDTO balanceEnquiry(@RequestBody EnquiryRequest enquiryRequest){
+        return userServiceImpl.balanceEnquiry(enquiryRequest);
+    }
+
+    @GetMapping("/accountNameEnquiry")
+    public String accountNameEnquiry(@RequestBody EnquiryRequest enquiryRequest){
+        return userServiceImpl.accountNameEnquiry(enquiryRequest);
     }
 }

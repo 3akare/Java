@@ -1,9 +1,6 @@
 package com.onlinebanking.bank.service.impl;
 
-import com.onlinebanking.bank.dto.AccountInfo;
-import com.onlinebanking.bank.dto.EmailDetailsDTO;
-import com.onlinebanking.bank.dto.ResponseDTO;
-import com.onlinebanking.bank.dto.UserDTO;
+import com.onlinebanking.bank.dto.*;
 import com.onlinebanking.bank.entity.User;
 import com.onlinebanking.bank.repository.UserRepository;
 import com.onlinebanking.bank.utils.AccountUtils;
@@ -30,8 +27,8 @@ public class UserServiceImpl implements UserService {
         /* check if user already exists */
         if (userRepository.existsByEmail(userDTO.getEmail())){
             return ResponseDTO.builder()
-                    .responseCode(AccountUtils.ACCOUNT_EXISTS_CODE)
-                    .responseMessage(AccountUtils.ACCOUNT_EXISTS_MESSAGE)
+                    .responseCode(AccountUtils.ACCOUNT_ALREADY_EXISTS_CODE)
+                    .responseMessage(AccountUtils.ACCOUNT_ALREADY_EXISTS_MESSAGE)
                     .accountInfo(null)
                     .build();
         }
@@ -87,5 +84,51 @@ public class UserServiceImpl implements UserService {
         emailContext.setVariable("balance", savedUser.getAccountBalance());
         emailContext.setVariable("year", Year.now());
         return emailContext;
+    }
+
+    @Override
+    public ResponseDTO balanceEnquiry(EnquiryRequest enquiryRequest) {
+        /* check if the account number exists */
+        if (userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
+            return ResponseDTO.builder()
+                    .responseMessage(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE)
+                    .responseCode(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_CODE)
+                    .accountInfo(null)
+                    .build();
+        }
+        User user = userRepository.findByAccountNumber(enquiryRequest.getAccountNumber());
+        AccountInfo accountInfo = AccountInfo.builder()
+                .accountName(user.getFirstName() + " " + user.getLastName())
+                .accountBalance(user.getAccountBalance())
+                .accountNumber(user.getAccountNumber())
+                .build();
+
+        return ResponseDTO.builder()
+                .responseMessage(AccountUtils.ACCOUNT_EXISTS_MESSAGE)
+                .responseCode(AccountUtils.ACCOUNT_EXISTS_CODE)
+                .accountInfo(accountInfo).build();
+    }
+
+    @Override
+    public String accountNameEnquiry(EnquiryRequest enquiryRequest) {
+        /* check if the account number exists */
+        if (userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
+            return AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE;
+        }
+        User user = userRepository.findByAccountNumber(enquiryRequest.getAccountNumber());
+        return user.getFirstName() + " " + user.getLastName();
+    }
+
+    @Override
+    public ResponseDTO creditAccount(CreditDebitDTO creditDebitDTO) {
+        /* check if accounts exists */
+        if (userRepository.existsByAccountNumber(creditDebitDTO.getAccountNumber())){
+            return ResponseDTO.builder()
+                    .responseCode(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_CODE)
+                    .responseMessage(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE)
+                    .accountInfo(null)
+                    .build();
+        }
+        return null;
     }
 }
