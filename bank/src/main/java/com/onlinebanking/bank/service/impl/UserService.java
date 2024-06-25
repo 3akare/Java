@@ -10,5 +10,5 @@ public interface UserService {
     ResponseDTO createAccount(UserDTO userDTO) throws MessagingException;
     ResponseDTO balanceEnquiry(EnquiryRequest enquiryRequest);
     String accountNameEnquiry(EnquiryRequest enquiryRequest);
-    ResponseDTO creditAccount(CreditDebitDTO creditDebitDTO)
+    ResponseDTO creditAccount(CreditDebitDTO creditDebitDTO);
 }

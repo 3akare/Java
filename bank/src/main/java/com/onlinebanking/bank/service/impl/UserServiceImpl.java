@@ -7,6 +7,7 @@ import com.onlinebanking.bank.utils.AccountUtils;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 
 import java.math.BigDecimal;
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseDTO balanceEnquiry(EnquiryRequest enquiryRequest) {
         /* check if the account number exists */
-        if (userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
+        if (!userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
             return ResponseDTO.builder()
                     .responseMessage(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE)
                     .responseCode(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_CODE)
@@ -112,23 +113,38 @@ public class UserServiceImpl implements UserService {
     @Override
     public String accountNameEnquiry(EnquiryRequest enquiryRequest) {
         /* check if the account number exists */
-        if (userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
+        if (!userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
             return AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE;
         }
         User user = userRepository.findByAccountNumber(enquiryRequest.getAccountNumber());
         return user.getFirstName() + " " + user.getLastName();
     }
 
+    @Transactional
     @Override
     public ResponseDTO creditAccount(CreditDebitDTO creditDebitDTO) {
         /* check if accounts exists */
-        if (userRepository.existsByAccountNumber(creditDebitDTO.getAccountNumber())){
+        if (!userRepository.existsByAccountNumber(creditDebitDTO.getAccountNumber())){
             return ResponseDTO.builder()
                     .responseCode(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_CODE)
                     .responseMessage(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE)
                     .accountInfo(null)
                     .build();
         }
-        return null;
+
+        User userToCredit = userRepository.findByAccountNumber(creditDebitDTO.getAccountNumber());
+        BigDecimal currentAmount = userToCredit.getAccountBalance();
+        userToCredit.setAccountBalance(currentAmount.add(creditDebitDTO.getAmount()));
+
+        return ResponseDTO.builder()
+                .responseCode(AccountUtils.ACCOUNT_CREDITED_SUCCESS_CODE)
+                .responseMessage(AccountUtils.ACCOUNT_CREDITED_SUCCESS_MESSAGE)
+                .accountInfo(AccountInfo
+                        .builder()
+                        .accountName(userToCredit.getFirstName() + "  " + userToCredit.getLastName())
+                        .accountNumber(userToCredit.getAccountNumber())
+                        .accountBalance(userToCredit.getAccountBalance())
+                        .build())
+                .build();
     }
 }

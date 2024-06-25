@@ -1,5 +1,6 @@
 package com.onlinebanking.bank.controller;
 
+import com.onlinebanking.bank.dto.CreditDebitDTO;
 import com.onlinebanking.bank.dto.EnquiryRequest;
 import com.onlinebanking.bank.dto.ResponseDTO;
 import com.onlinebanking.bank.dto.UserDTO;
@@ -17,6 +18,11 @@ public class UserController {
     @PostMapping("/createAccount")
     public ResponseDTO createAccount(@RequestBody  UserDTO userDTO) throws MessagingException {
         return userServiceImpl.createAccount(userDTO);
+    }
+
+    @PostMapping("/creditAccount")
+    public ResponseDTO creditAccount(@RequestBody CreditDebitDTO creditDebitDTO){
+        return userServiceImpl.creditAccount(creditDebitDTO);
     }
 
     @GetMapping("/balanceEnquiry")
