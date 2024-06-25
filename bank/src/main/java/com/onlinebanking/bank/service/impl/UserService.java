@@ -11,4 +11,5 @@ public interface UserService {
     ResponseDTO balanceEnquiry(EnquiryRequest enquiryRequest);
     String accountNameEnquiry(EnquiryRequest enquiryRequest);
     ResponseDTO creditAccount(CreditDebitDTO creditDebitDTO);
+    ResponseDTO debitAccount(CreditDebitDTO creditDebitDTO);
 }

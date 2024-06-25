@@ -147,4 +147,39 @@ public class UserServiceImpl implements UserService {
                         .build())
                 .build();
     }
+
+    @Transactional
+    @Override
+    public ResponseDTO debitAccount(CreditDebitDTO creditDebitDTO) {
+        User user = userRepository.findByAccountNumber(creditDebitDTO.getAccountNumber());
+
+        if (user == null){
+            return ResponseDTO.builder()
+                    .responseCode(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_CODE)
+                    .responseMessage(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE)
+                    .accountInfo(null)
+                    .build();
+        }
+        if (user.getAccountBalance().compareTo(creditDebitDTO.getAmount()) < 0){
+            return ResponseDTO.builder()
+                    .responseCode(AccountUtils.ACCOUNT_INSUFFICIENT_BALANCE_CODE)
+                    .responseMessage(AccountUtils.ACCOUNT_INSUFFICIENT_BALANCE_MESSAGE)
+                    .accountInfo(null)
+                    .build();
+        }
+
+        BigDecimal currentAmount = user.getAccountBalance();
+        user.setAccountBalance(currentAmount.subtract(creditDebitDTO.getAmount()));
+
+        return ResponseDTO.builder()
+                .responseCode(AccountUtils.ACCOUNT_DEBITED_SUCCESS_CODE)
+                .responseMessage(AccountUtils.ACCOUNT_DEBITED_SUCCESS_MESSAGE)
+                .accountInfo(AccountInfo
+                        .builder()
+                        .accountNumber(user.getAccountNumber())
+                        .accountBalance(user.getAccountBalance())
+                        .accountName(user.getFirstName() + " " + user.getLastName())
+                        .build())
+                .build();
+    }
 }

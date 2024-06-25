@@ -25,6 +25,11 @@ public class UserController {
         return userServiceImpl.creditAccount(creditDebitDTO);
     }
 
+    @PostMapping("/debitAccount")
+    public ResponseDTO debitAccount(@RequestBody CreditDebitDTO creditDebitDTO){
+        return userServiceImpl.debitAccount(creditDebitDTO);
+    }
+
     @GetMapping("/balanceEnquiry")
     public ResponseDTO balanceEnquiry(@RequestBody EnquiryRequest enquiryRequest){
         return userServiceImpl.balanceEnquiry(enquiryRequest);
