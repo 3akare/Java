@@ -1,4 +1,4 @@
-package com.onlinebanking.bank.service.impl;
+package com.onlinebanking.bank.service;
 
 import com.onlinebanking.bank.dto.*;
 import jakarta.mail.MessagingException;

@@ -1,20 +1,14 @@
-package com.onlinebanking.bank.entity;
+package com.onlinebanking.bank.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Builder
-@Table(name = "transaction")
-public class Transaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class TransactionDTO {
     private UUID transactionId;
     private String transactionType;
     private BigDecimal amount;

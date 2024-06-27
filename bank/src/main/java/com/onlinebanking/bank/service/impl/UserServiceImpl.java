@@ -3,6 +3,7 @@ package com.onlinebanking.bank.service.impl;
 import com.onlinebanking.bank.dto.*;
 import com.onlinebanking.bank.entity.User;
 import com.onlinebanking.bank.repository.UserRepository;
+import com.onlinebanking.bank.service.UserService;
 import com.onlinebanking.bank.utils.AccountUtils;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     EmailServiceImpl emailServiceImpl;
+
+    @Autowired
+    TransactionServiceImpl transactionServiceImpl;
 
     @Override
     /* Creating an account - Saving a new user into Database */
@@ -126,6 +130,15 @@ public class UserServiceImpl implements UserService {
         BigDecimal currentAmount = userToCredit.getAccountBalance();
         userToCredit.setAccountBalance(currentAmount.add(creditDebitDTO.getAmount()));
 
+        TransactionDTO transactionDTO = TransactionDTO.builder()
+                .amount(creditDebitDTO.getAmount())
+                .accountNumber(creditDebitDTO.getAccountNumber())
+                .transactionType("Credit")
+                .status("Success")
+                .build();
+
+        transactionServiceImpl.saveTransaction(transactionDTO);
+
         EmailDetailsDTO emailDetailsDTO = EmailDetailsDTO
                 .builder()
                 .recipient(userToCredit.getEmail())
@@ -176,6 +189,15 @@ public class UserServiceImpl implements UserService {
 
         BigDecimal currentAmount = user.getAccountBalance();
         user.setAccountBalance(currentAmount.subtract(creditDebitDTO.getAmount()));
+
+        TransactionDTO transactionDTO = TransactionDTO.builder()
+                .amount(creditDebitDTO.getAmount())
+                .accountNumber(creditDebitDTO.getAccountNumber())
+                .transactionType("Debit")
+                .status("Success")
+                .build();
+
+        transactionServiceImpl.saveTransaction(transactionDTO);
 
         EmailDetailsDTO emailDetailsDTO = EmailDetailsDTO
                 .builder()
