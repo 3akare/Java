@@ -1,9 +1,6 @@
 package com.onlinebanking.bank.controller;
 
-import com.onlinebanking.bank.dto.CreditDebitDTO;
-import com.onlinebanking.bank.dto.EnquiryRequest;
-import com.onlinebanking.bank.dto.ResponseDTO;
-import com.onlinebanking.bank.dto.UserDTO;
+import com.onlinebanking.bank.dto.*;
 import com.onlinebanking.bank.service.impl.UserServiceImpl;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +18,18 @@ public class UserController {
     }
 
     @PostMapping("/creditAccount")
-    public ResponseDTO creditAccount(@RequestBody CreditDebitDTO creditDebitDTO){
+    public ResponseDTO creditAccount(@RequestBody CreditDebitDTO creditDebitDTO) throws MessagingException {
         return userServiceImpl.creditAccount(creditDebitDTO);
     }
 
     @PostMapping("/debitAccount")
-    public ResponseDTO debitAccount(@RequestBody CreditDebitDTO creditDebitDTO){
+    public ResponseDTO debitAccount(@RequestBody CreditDebitDTO creditDebitDTO) throws MessagingException {
         return userServiceImpl.debitAccount(creditDebitDTO);
+    }
+
+    @PostMapping("/transfer")
+    public ResponseDTO transfer(@RequestBody TransferDTO transferDTO) throws MessagingException {
+        return  userServiceImpl.transfer(transferDTO);
     }
 
     @GetMapping("/balanceEnquiry")
