@@ -4,14 +4,5 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class AccountInfo {
-    private String accountName;
-    private String accountNumber;
-    private BigDecimal accountBalance;
-}
-
-
+public record AccountInfo(String accountName, String accountNumber, BigDecimal accountBalance){}

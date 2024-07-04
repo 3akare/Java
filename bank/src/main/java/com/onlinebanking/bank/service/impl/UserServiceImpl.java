@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     /* Creating an account - Saving a new user into Database */
     public ResponseDTO createAccount(UserDTO userDTO) throws MessagingException {
         /* check if user already exists */
-        if (userRepository.existsByEmail(userDTO.getEmail())){
+        if (userRepository.existsByEmail(userDTO.email())){
             return ResponseDTO.builder()
                     .responseCode(AccountUtils.ACCOUNT_ALREADY_EXISTS_CODE)
                     .responseMessage(AccountUtils.ACCOUNT_ALREADY_EXISTS_MESSAGE)
@@ -40,16 +40,16 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = User.builder()
-                .firstName(userDTO.getFirstName())
-                .lastName(userDTO.getLastName())
-                .otherName(userDTO.getOtherName())
-                .gender(userDTO.getGender())
-                .address(userDTO.getAddress())
-                .stateOfOrigin(userDTO.getStateOfOrigin())
-                .dateOfBirth(userDTO.getDateOfBirth())
-                .email(userDTO.getEmail())
-                .phoneNumber(userDTO.getPhoneNumber())
-                .alternativePhoneNumber(userDTO.getAlternativePhoneNumber())
+                .firstName(userDTO.firstName())
+                .lastName(userDTO.lastName())
+                .otherName(userDTO.otherName())
+                .gender(userDTO.gender())
+                .address(userDTO.address())
+                .stateOfOrigin(userDTO.stateOfOrigin())
+                .dateOfBirth(userDTO.dateOfBirth())
+                .email(userDTO.email())
+                .phoneNumber(userDTO.phoneNumber())
+                .alternativePhoneNumber(userDTO.alternativePhoneNumber())
                 .status("ACTIVE")
                 .accountNumber(AccountUtils.generateAccountNumber())
                 .accountBalance(BigDecimal.ZERO)
@@ -84,14 +84,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseDTO balanceEnquiry(EnquiryRequest enquiryRequest) {
         /* check if the account number exists */
-        if (!userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
+        if (!userRepository.existsByAccountNumber(enquiryRequest.accountNumber())){
             return ResponseDTO.builder()
                     .responseMessage(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE)
                     .responseCode(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_CODE)
                     .accountInfo(null)
                     .build();
         }
-        User user = userRepository.findByAccountNumber(enquiryRequest.getAccountNumber());
+        User user = userRepository.findByAccountNumber(enquiryRequest.accountNumber());
         AccountInfo accountInfo = AccountInfo.builder()
                 .accountName(user.getFirstName() + " " + user.getLastName())
                 .accountBalance(user.getAccountBalance())
@@ -107,10 +107,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String accountNameEnquiry(EnquiryRequest enquiryRequest) {
         /* check if the account number exists */
-        if (!userRepository.existsByAccountNumber(enquiryRequest.getAccountNumber())){
+        if (!userRepository.existsByAccountNumber(enquiryRequest.accountNumber())){
             return AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE;
         }
-        User user = userRepository.findByAccountNumber(enquiryRequest.getAccountNumber());
+        User user = userRepository.findByAccountNumber(enquiryRequest.accountNumber());
         return user.getFirstName() + " " + user.getLastName();
     }
 
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseDTO creditAccount(CreditDebitDTO creditDebitDTO) throws MessagingException {
         /* check if accounts exists */
-        if (!userRepository.existsByAccountNumber(creditDebitDTO.getAccountNumber())){
+        if (!userRepository.existsByAccountNumber(creditDebitDTO.accountNumber())){
             return ResponseDTO.builder()
                     .responseCode(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_CODE)
                     .responseMessage(AccountUtils.ACCOUNT_DOES_NOT_EXISTS_MESSAGE)
@@ -126,13 +126,13 @@ public class UserServiceImpl implements UserService {
                     .build();
         }
 
-        User userToCredit = userRepository.findByAccountNumber(creditDebitDTO.getAccountNumber());
+        User userToCredit = userRepository.findByAccountNumber(creditDebitDTO.accountNumber());
         BigDecimal currentAmount = userToCredit.getAccountBalance();
-        userToCredit.setAccountBalance(currentAmount.add(creditDebitDTO.getAmount()));
+        userToCredit.setAccountBalance(currentAmount.add(creditDebitDTO.amount()));
 
         TransactionDTO transactionDTO = TransactionDTO.builder()
-                .amount(creditDebitDTO.getAmount())
-                .accountNumber(creditDebitDTO.getAccountNumber())
+                .amount(creditDebitDTO.amount())
+                .accountNumber(creditDebitDTO.accountNumber())
                 .transactionType("Credit")
                 .status("Success")
                 .build();
@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserService {
                 .subject("3ank: Account Credited")
                 .build();
 
-        String message = "Your Account was credited\nAmount Credited: " + creditDebitDTO.getAmount();
+        String message = "Your Account was credited\nAmount Credited: " + creditDebitDTO.amount();
         Context emailContext = getEmailContext(userToCredit, "3ank: Account Credited", message);
 
         /* Account credit email */
@@ -166,7 +166,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public ResponseDTO debitAccount(CreditDebitDTO creditDebitDTO) throws MessagingException {
-        User user = userRepository.findByAccountNumber(creditDebitDTO.getAccountNumber());
+        User user = userRepository.findByAccountNumber(creditDebitDTO.accountNumber());
 
         if (user == null){
             return ResponseDTO.builder()
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
                     .accountInfo(null)
                     .build();
         }
-        if (user.getAccountBalance().compareTo(creditDebitDTO.getAmount()) < 0){
+        if (user.getAccountBalance().compareTo(creditDebitDTO.amount()) < 0){
             return ResponseDTO.builder()
                     .responseCode(AccountUtils.ACCOUNT_INSUFFICIENT_BALANCE_CODE)
                     .responseMessage(AccountUtils.ACCOUNT_INSUFFICIENT_BALANCE_MESSAGE)
@@ -188,11 +188,11 @@ public class UserServiceImpl implements UserService {
         }
 
         BigDecimal currentAmount = user.getAccountBalance();
-        user.setAccountBalance(currentAmount.subtract(creditDebitDTO.getAmount()));
+        user.setAccountBalance(currentAmount.subtract(creditDebitDTO.amount()));
 
         TransactionDTO transactionDTO = TransactionDTO.builder()
-                .amount(creditDebitDTO.getAmount())
-                .accountNumber(creditDebitDTO.getAccountNumber())
+                .amount(creditDebitDTO.amount())
+                .accountNumber(creditDebitDTO.accountNumber())
                 .transactionType("Debit")
                 .status("Success")
                 .build();
@@ -205,7 +205,7 @@ public class UserServiceImpl implements UserService {
                 .subject("3ank: Account Debited")
                 .build();
 
-        String message = "Your Account was debited\nAmount Debited: " + creditDebitDTO.getAmount();
+        String message = "Your Account was debited\nAmount Debited: " + creditDebitDTO.amount();
         Context emailContext = getEmailContext(user, "3ank: Account Debited", message);
 
         /* Account credit email */
@@ -226,8 +226,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public ResponseDTO transfer(TransferDTO transferDTO) throws MessagingException {
-        User sender = userRepository.findByAccountNumber(transferDTO.getSenderAccountNumber());
-        User receiver = userRepository.findByAccountNumber(transferDTO.getReceiverAccountNumber());
+        User sender = userRepository.findByAccountNumber(transferDTO.senderAccountNumber());
+        User receiver = userRepository.findByAccountNumber(transferDTO.receiverAccountNumber());
 
         /* Check if sender exists */
         if(sender == null){
@@ -251,34 +251,34 @@ public class UserServiceImpl implements UserService {
         assert receiver != null;
 
         ResponseDTO senderResponse =  debitAccount(CreditDebitDTO.builder()
-                .amount(transferDTO.getAmount())
+                .amount(transferDTO.amount())
                 .accountNumber(sender.getAccountNumber())
                 .build());
 
-        if(senderResponse.getAccountInfo() == null || Objects.equals(senderResponse.getResponseCode(), "007")){
+        if(senderResponse.accountInfo() == null || Objects.equals(senderResponse.responseCode(), "007")){
             return ResponseDTO.builder()
                     .accountInfo(null)
-                    .responseMessage(senderResponse.getResponseMessage())
-                    .responseCode(senderResponse.getResponseCode())
+                    .responseMessage(senderResponse.responseMessage())
+                    .responseCode(senderResponse.responseCode())
                     .build();
         }
 
         ResponseDTO receiverResponse = creditAccount(CreditDebitDTO.builder().
-                amount(transferDTO.getAmount())
+                amount(transferDTO.amount())
                 .accountNumber(receiver.getAccountNumber())
                 .build());
 
-        if(receiverResponse.getAccountInfo() == null){
+        if(receiverResponse.accountInfo() == null){
             /* Refund sender if something goes wrong */
             creditAccount(CreditDebitDTO.builder()
-                    .amount(transferDTO.getAmount())
+                    .amount(transferDTO.amount())
                     .accountNumber(sender.getAccountNumber())
                     .build());
 
             return ResponseDTO.builder()
                     .accountInfo(null)
-                    .responseMessage(receiverResponse.getResponseMessage())
-                    .responseCode(receiverResponse.getResponseCode())
+                    .responseMessage(receiverResponse.responseMessage())
+                    .responseCode(receiverResponse.responseCode())
                     .build();
         }
 

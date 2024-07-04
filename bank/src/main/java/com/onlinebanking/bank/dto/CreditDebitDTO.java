@@ -7,11 +7,5 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class CreditDebitDTO {
-    private String accountNumber;
-    private BigDecimal amount;
-}
+public record CreditDebitDTO (String accountNumber, BigDecimal amount) {}
