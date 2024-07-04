@@ -1,5 +1,6 @@
 package com.onlinebanking.bank.repository;
 
+import com.onlinebanking.bank.dto.UserDTO;
 import com.onlinebanking.bank.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
                 .responseMessage(AccountUtils.ACCOUNT_CREDITED_SUCCESS_MESSAGE)
                 .accountInfo(AccountInfo
                         .builder()
-                        .accountName(userToCredit.getFirstName() + "  " + userToCredit.getLastName())
+                        .accountName(userToCredit.getFirstName() + " " + userToCredit.getLastName())
                         .accountNumber(userToCredit.getAccountNumber())
                         .accountBalance(userToCredit.getAccountBalance())
                         .build())
